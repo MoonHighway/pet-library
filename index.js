@@ -4,76 +4,51 @@ const typeDefs = gql`
   scalar PhoneNumber
 
   interface Pet {
-    id: ID!
     name: String!
     weight: Int
     photo: Photo
-    email: String
-    type: PetCategory
-    checkedOut: Boolean!
+    isCheckedOut: Boolean!
+    checkoutHistory: [Customer!]!
   }
 
   type Cat implements Pet {
-    id: ID!
-    name: String!
+    name: ID!
     weight: Int
     photo: Photo
-    email: String
-    type: PetCategory
-    checkedOut: Boolean!
+    isCheckedOut: Boolean!
     dailySleep: Int!
   }
 
   type Dog implements Pet {
-    id: ID!
-    name: String!
+    name: ID!
     weight: Int
     photo: Photo
-    email: String
-    type: PetCategory
-    checkedOut: Boolean!
+    isCheckedOut: Boolean!
     goodDog: Boolean!
   }
 
   type Snake implements Pet {
-    id: ID!
-    name: String!
+    name: ID!
     weight: Int
     photo: Photo
-    email: String
-    type: PetCategory
-    checkedOut: Boolean!
-    favoriteBook: String
+    isCheckedOut: Boolean!
+    poisonous: Boolean
   }
 
-  type Bird implements Pet {
-    id: ID!
-    name: String!
+  type Mouse implements Pet {
+    name: ID!
     weight: Int
     photo: Photo
-    email: String
-    type: PetCategory
-    checkedOut: Boolean!
-    talks: Boolean!
+    isCheckedOut: Boolean!
+    squeaky: Boolean!
   }
 
   type Stingray implements Pet {
-    id: ID!
-    name: String!
+    name: ID!
     weight: Int
     photo: Photo
-    email: String
-    type: PetCategory
-    checkedOut: Boolean!
-    mad: Boolean!
-  }
-
-  enum PetCategory {
-    CAT
-    DOG
-    SNAKE
-    BIRD
-    STINGRAY
+    isCheckedOut: Boolean!
+    chill: Boolean!
   }
 
   type Photo {
@@ -86,27 +61,26 @@ const typeDefs = gql`
     name: String!
     email: String!
     phone: PhoneNumber
-    checkedOut: [Pet!]!
-    lateFees: Int
+    petsCheckedOut: [Pet!]!
   }
-
-  union RandomPet = Cat | Dog | Snake | Bird | Stingray
 
   type Query {
     totalPets(checkedOut: Boolean): Int!
-    allPets(type: PetCategory): [Pet!]!
+    allPets: [Pet!]!
     myPets: [Pet!]!
-    petByName(name: String!): Pet!
+    petByName(name: ID!): Pet!
     totalCustomers: Int!
     customerById(id: ID!): Customer!
-    whoCheckedTheDogsOut: [Customer!]!
   }
 
   type Mutation {
-    login(username: String, password: String): Boolean
-    checkIn(id: ID!): Pet!
-    checkOut(id: ID!): Pet!
-    causeChaoticAnimalParty(petCount: Int!): [RandomPet!]!
+    createAccount(username: String, password: String): Customer
+    checkIn(name: ID!): Pet!
+    checkOut(name: ID!): Pet!
+  }
+
+  type Subscription {
+    petCheckedIn: Pet!
   }
 `;
 
