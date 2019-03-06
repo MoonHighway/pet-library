@@ -1,7 +1,7 @@
 const { ApolloServer, gql } = require("apollo-server");
 
 const typeDefs = gql`
-  scalar PhoneNumber
+  scalar Date
 
   interface Pet {
     name: String!
@@ -58,16 +58,26 @@ const typeDefs = gql`
 
   type Customer {
     id: ID!
-    name: String!
     email: String!
-    phone: PhoneNumber
+    password: String!
     petsCheckedOut: [Pet!]!
+  }
+
+  input PetDetailsInput {
+    name: String!
+    length: Int
+  }
+
+  type CheckedOutPet {
+    pet: Pet!
+    dueDate: Date!
+    overdue: Boolean
   }
 
   type Query {
     totalPets(checkedOut: Boolean): Int!
-    allPets: [Pet!]!
-    myPets: [Pet!]!
+    allPets(overdue: Boolean): [Pet!]!
+    myPets: [CheckedOutPet!]!
     petByName(name: ID!): Pet!
     totalCustomers: Int!
     customerById(id: ID!): Customer!
@@ -76,7 +86,7 @@ const typeDefs = gql`
   type Mutation {
     createAccount(username: String, password: String): Customer
     checkIn(name: ID!): Pet!
-    checkOut(name: ID!): Pet!
+    checkOut(input: PetDetailsInput!): CheckedOutPet!
   }
 
   type Subscription {
