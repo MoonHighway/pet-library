@@ -1,0 +1,63 @@
+scalar Date
+
+type Pet {
+  name: ID!
+  weight: Float
+  category: PetCategory!
+  checkedOut: Boolean!
+  photo: Photo
+  inCareOf: Customer
+}
+
+type Customer {
+  id: ID!
+  name: String!
+  email: String!
+  password: String
+  currentPets: [Pet!]!
+}
+
+type Photo {
+  full: String
+  thumb: String
+}
+
+enum PetCategory {
+  CAT
+  DOG
+  RABBIT
+  STINGRAY
+}
+
+input CreateAccountInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+type LogInPayload {
+  user: Customer
+  token: String!
+}
+
+type CheckOutPayload {
+  user: Customer
+  dueDate: Date!
+  totalPets: Int
+}
+
+type Query {
+  totalPets(checkedOut: Boolean): Int!
+  allPets(category: PetCategory, checkedOut: Boolean): [Pet!]!
+  petByName(name: ID!): Pet!
+  allCustomers: [Customer!]!
+  isOpen: Boolean!
+  me: Customer
+}
+
+type Mutation {
+  openLibrary: Boolean!
+  createAccount(input: CreateAccountInput!): Customer!
+  logIn(email: String!, password: String!): LogInPayload!
+  checkOut(pets: [ID!]!): CheckOutPayload!
+}

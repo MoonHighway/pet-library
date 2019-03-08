@@ -1,0 +1,102 @@
+  scalar Date
+
+  interface Pet {
+    name: ID!
+    weight: Float
+    checkedOut: Boolean!
+    photo: Photo
+    inCareOf: Customer
+  }
+
+  type Cat extends Pet {
+    name: ID!
+    weight: Float
+    checkedOut: Boolean!
+    photo: Photo
+    inCareOf: Customer
+    sleepAmount: Int
+    curious: Boolean
+  }
+
+  type Dog extends Pet {
+    name: ID!
+    weight: Float
+    checkedOut: Boolean!
+    photo: Photo
+    inCareOf: Customer
+    good: Boolean
+  }
+
+  type Rabbit extends Pet {
+    name: ID!
+    weight: Float
+    checkedOut: Boolean!
+    photo: Photo
+    inCareOf: Customer
+    favoriteFood: String
+    floppy: Boolean
+  }
+
+  type Stingray extends Pet {
+    name: ID!
+    weight: Float
+    checkedOut: Boolean!
+    photo: Photo
+    inCareOf: Customer
+    favoriteFood: String
+    chill: Boolean
+    fast: Boolean
+  }
+
+  type Customer {
+    id: ID!
+    name: String!
+    email: String!
+    password: String
+    currentPets: [Pet!]!
+  }
+
+  type Photo {
+    full: String
+    thumb: String
+  }
+
+  input CreateAccountInput {
+    name: String!
+    email: String!
+    password: String!
+  }
+
+  type LogInPayload {
+    user: Customer
+    token: String!
+  }
+
+  type CheckOutPayload {
+    user: Customer
+    dueDate: Date!
+    totalPets: Int
+  }
+
+  union SearchResult = Customer | Pet
+
+  type Query {
+    totalPets(checkedOut: Boolean): Int!
+    allPets(category: PetCategory, checkedOut: Boolean): [Pet!]!
+    petByName(name: ID!): Pet!
+    allCustomers: [Customer!]!
+    isOpen: Boolean!
+    me: Customer
+    search(searchString: String): SearchResult
+  }
+
+  type Mutation {
+    openLibrary: Boolean!
+    createAccount(input: CreateAccountInput!): Customer!
+    logIn(email: String!, password: String!): LogInPayload!
+    checkOut(pets: [ID!]!): CheckOutPayload!
+  }
+
+  type Subscription {
+    returnedPet: Pet
+  }
