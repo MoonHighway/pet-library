@@ -4,7 +4,7 @@ type Pet {
   name: ID!
   weight: Float
   category: PetCategory!
-  checkedOut: Boolean!
+  checkedOut: Boolean
   photo: Photo
   inCareOf: Customer
 }
@@ -13,7 +13,6 @@ type Customer {
   id: ID!
   name: String!
   email: String!
-  password: String
   currentPets: [Pet!]!
 }
 
@@ -36,7 +35,7 @@ input CreateAccountInput {
 }
 
 type LogInPayload {
-  user: Customer
+  customer: Customer
   token: String!
 }
 

@@ -25,7 +25,6 @@ query {
   allPets {
     name
     weight
-    checkedOut
   }
 }
 ```
@@ -38,8 +37,7 @@ _Response_
     "allPets": [
       {
         "name": "Sandwich",
-        "weight": 9.5,
-        "checkedOut": true
+        "weight": 9.5
       }
       ...
     ]
@@ -303,7 +301,7 @@ _response_
 }
 ```
 
-## 8. Use GraphQL Aliases to Rename Response Fields
+## 9. Use GraphQL Aliases to Rename Response Fields
 
 ```graphql
 query {
@@ -347,7 +345,7 @@ _response_
 }
 ```
 
-## 9. Use Operation Names for GraphQL Queries
+## 10. Use Operation Names for GraphQL Queries
 
 ```graphql
 query AllData {
@@ -412,7 +410,7 @@ query CustomersPage {
 }
 ```
 
-## 10. Send a Mutation to Change GraphQL Data
+## 11. Send a Mutation to Change GraphQL Data
 
 ```graphql
 query {
@@ -444,7 +442,7 @@ _Response_
 }
 ```
 
-## 11. Create Account Mutation
+## 12. Create Account Mutation
 
 ```graphql
 mutation($input: CreateAccountInput!) {
@@ -480,7 +478,7 @@ _Response_
 }
 ```
 
-## 12. Authenticate a User with a GraphQL Mutation
+## 13. Authenticate a User with a GraphQL Mutation
 
 ```graphql
 mutation ($email: String! password: String!) {
@@ -547,7 +545,7 @@ _Response_
 }
 ```
 
-## 13. Understand Errors with GraphQL Mutations
+## 14. Understand Errors with GraphQL Mutations
 
 - Show Successful Mutation
 
@@ -643,7 +641,7 @@ _Response_
 }
 ```
 
-## 13. Reuse GraphQL Selection Sets with Fragments
+## 15. Reuse GraphQL Selection Sets with Fragments
 
 ```graphql
 query AvailableStingrays {
@@ -700,7 +698,7 @@ query {
 }
 ```
 
-## 14. Query Multiple Types using a Union in GraphQL
+## 16. Query Multiple Types using a Union in GraphQL
 
 ```graphql
 query {
@@ -745,7 +743,7 @@ _Response_
 }
 ```
 
-## 15. Query GraphQL Interface Types in GraphQL Playground
+## 17. Query GraphQL Interface Types in GraphQL Playground
 
 ```graphql
 query {
@@ -797,7 +795,7 @@ _Response_
 }
 ```
 
-## 16. Listen For Data Changes With a GraphQL Subscription
+## 18. Listen For Data Changes With a GraphQL Subscription
 
 ```graphql
 subscription {
@@ -847,7 +845,7 @@ _Response_
 }
 ```
 
-## 17. Query a GraphQL API's Types With Introspection Queries
+## 19. Query a GraphQL API's Types With Introspection Queries
 
 ```graphql
 query AllTypes {

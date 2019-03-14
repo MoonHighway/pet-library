@@ -4,14 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ."
+    "start": "nodemon -r dotenv/config ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.4.8",
-    "graphql": "^14.1.1"
+    "bcrypt": "^3.0.4",
+    "dotenv": "^7.0.0",
+    "graphql": "^14.1.1",
+    "jsonwebtoken": "^8.5.0",
+    "mongodb": "^3.1.13",
+    "shortid": "^2.2.14"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
