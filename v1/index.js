@@ -9,9 +9,32 @@ const typeDefs = readFileSync("./typeDefs.graphql", "UTF-8");
 
 const resolvers = {
   Query: {
-    totalPets: (parent, args, { pets }) => pets.countDocuments(),
-    allPets: (parent, args, { pets }) => pets.find().toArray(),
+    totalPets: async (parent, { status }, { pets, checkouts }) => {
+      if (status === "AVAILABLE") {
+        let totalPets = await pets.countDocuments();
+        let totalCheckouts = await checkouts.countDocuments();
+        return totalPets - totalCheckouts;
+      } else if (status === "CHECKEDOUT") {
+        return checkouts.countDocuments();
+      } else {
+        return pets.countDocuments();
+      }
+    },
+    allPets: (parent, { category }, { pets }) => {
+      if (category) {
+        return pets.find({ category }).toArray();
+      } else {
+        return pets.find().toArray();
+      }
+    },
+    availablePets: async (parent, args, { pets, checkouts }) => {},
     me: (parent, args, { currentCustomer }) => currentCustomer
+  },
+  Pet: {
+    checkedOut: async (parent, args, { checkouts }) => {
+      let checkedOutPet = await checkouts.findOne({ petId: parent.id });
+      return checkedOutPet ? true : false;
+    }
   },
   Mutation: {
     createAccount: async (

@@ -28,6 +28,11 @@ enum PetCategory {
   STINGRAY
 }
 
+enum PetStatus {
+  AVAILABLE
+  CHECKEDOUT
+}
+
 input CreateAccountInput {
   name: String!
   username: ID!
@@ -46,9 +51,11 @@ type CheckOutPayload {
 }
 
 type Query {
-  totalPets(checkedOut: Boolean): Int!
-  allPets(category: PetCategory, checkedOut: Boolean): [Pet!]!
+  totalPets(status: PetStatus): Int!
+  allPets(category: PetCategory): [Pet!]!
   petById(id: ID!): Pet!
+  availablePets: [Pet!]!
+  checkedOutPets: [Pet!]!
   allCustomers: [Customer!]!
   me: Customer
 }
