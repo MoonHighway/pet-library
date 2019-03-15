@@ -52,10 +52,8 @@ type CheckOutPayload {
 
 type Query {
   totalPets(status: PetStatus): Int!
-  allPets(category: PetCategory): [Pet!]!
+  allPets(category: PetCategory, status: PetStatus): [Pet!]!
   petById(id: ID!): Pet!
-  availablePets: [Pet!]!
-  checkedOutPets: [Pet!]!
   allCustomers: [Customer!]!
   me: Customer
 }
