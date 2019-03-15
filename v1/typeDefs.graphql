@@ -1,7 +1,8 @@
 scalar Date
 
 type Pet {
-  name: ID!
+  id: ID!
+  name: String!
   weight: Float
   category: PetCategory!
   checkedOut: Boolean
@@ -10,9 +11,8 @@ type Pet {
 }
 
 type Customer {
-  id: ID!
+  username: ID!
   name: String!
-  email: String!
   currentPets: [Pet!]!
 }
 
@@ -30,7 +30,7 @@ enum PetCategory {
 
 input CreateAccountInput {
   name: String!
-  email: String!
+  username: ID!
   password: String!
 }
 
@@ -40,23 +40,21 @@ type LogInPayload {
 }
 
 type CheckOutPayload {
-  user: Customer
+  customer: Customer
+  pet: Pet
   dueDate: Date!
-  totalPets: Int
 }
 
 type Query {
   totalPets(checkedOut: Boolean): Int!
   allPets(category: PetCategory, checkedOut: Boolean): [Pet!]!
-  petByName(name: ID!): Pet!
+  petById(id: ID!): Pet!
   allCustomers: [Customer!]!
-  isOpen: Boolean!
   me: Customer
 }
 
 type Mutation {
-  openLibrary: Boolean!
   createAccount(input: CreateAccountInput!): Customer!
-  logIn(email: String!, password: String!): LogInPayload!
-  checkOut(pets: [ID!]!): CheckOutPayload!
+  logIn(username: ID!, password: String!): LogInPayload!
+  checkOut(id: ID!): CheckOutPayload!
 }

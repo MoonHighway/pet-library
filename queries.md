@@ -237,7 +237,7 @@ query($name: String!) {
     name
     inCareOf {
       name
-      email
+      username
     }
   }
 }
@@ -260,7 +260,7 @@ _Response_
       "name": "Freddie",
       "inCareOf": {
         "name": "Don Levy",
-        "email": "don@industries.com"
+        "username": "donman"
       }
     }
   }
@@ -273,7 +273,7 @@ _Response_
 query {
   allCustomers {
     name
-    email
+    username
     currentPets {
       name
     }
@@ -289,7 +289,7 @@ _response_
     "allCustomers": [
       {
         "name": "Don Levy",
-        "email": "don@industries.com",
+        "username": "donman",
         "currentPets": [
           {
             "name": "Hot Dog"
@@ -362,13 +362,13 @@ query AllData {
     }
     inCareOf {
       name
-      email
+      username
     }
   }
   totalCustomers
   allCustomers {
     name
-    email
+    username
     currentPets {
       name
     }
@@ -394,7 +394,7 @@ query PetsPage {
     }
     inCareOf {
       name
-      email
+      username
     }
   }
 }
@@ -402,7 +402,7 @@ query CustomersPage {
   totalCustomers
   allCustomers {
     name
-    email
+    username
     currentPets {
       name
     }
@@ -448,7 +448,7 @@ _Response_
 mutation($input: CreateAccountInput!) {
   createAccount(input: $input) {
     name
-    email
+    username
     password
   }
 }
@@ -458,7 +458,7 @@ mutation($input: CreateAccountInput!) {
 {
   "input": {
     "name": "Joe Jazzman",
-    "email": "joe@jazztours.biz",
+    "username": "joejazz",
     "password": "jazz4lyfe"
   }
 }
@@ -471,7 +471,7 @@ _Response_
   "data": {
     "createAccount": {
       "name": "Joe Jazzman",
-      "email": "joe@jazztours.biz",
+      "username": "joejazz",
       "password": "jazz4lyfe"
     }
   }
@@ -481,8 +481,8 @@ _Response_
 ## 13. Authenticate a User with a GraphQL Mutation
 
 ```graphql
-mutation ($email: String! password: String!) {
-  logIn(email: $email password: $password) {
+mutation ($username: ID! password: String!) {
+  logIn(username: $username password: $password) {
     user {
       name
     }
@@ -495,7 +495,7 @@ _query vars_
 
 ```json
 {
-  "email": "joe@jazzman.edu",
+  "username": "joejazz",
   "password": "keep-it-jazzy"
 }
 ```
@@ -551,7 +551,7 @@ _Response_
 
 ```graphql
 mutation {
-  checkOut(pets: ["Biscuit", "Jungle"]) {
+  checkOut(pet: "C-1") {
     name
     dueDate
     totalPets
@@ -706,7 +706,7 @@ query {
     __typename
     ... on Customer {
       name
-      email
+      username
       currentPet {
         name
       }
@@ -728,7 +728,7 @@ _Response_
       {
         "__typename": "Customer",
         "name": "Bismarck Flenders",
-        "email": "bismarck.flenders@gmail.com",
+        "username": "bismarck.flenders",
         "currentPet": {
           "name": "Sugar"
         }

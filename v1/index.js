@@ -16,38 +16,38 @@ const resolvers = {
   Mutation: {
     createAccount: async (
       parent,
-      { input: { name, email, password } },
+      { input: { name, username, password } },
       { customers }
     ) => {
-      let existingCustomer = await customers.findOne({ email });
+      let existingCustomer = await customers.findOne({ username });
       if (!existingCustomer) {
         let hash = bcrypt.hashSync(password, 10);
         let newCustomer = {
           id: generate(),
           name,
-          email,
+          username,
           currentPets: [],
           password: hash
         };
         await customers.insertOne(newCustomer);
         return newCustomer;
       } else {
-        throw new Error("An account with this email address already exists.");
+        throw new Error("An account with this username already exists.");
       }
     },
     logIn: async (
       parent,
-      { email, password },
+      { username, password },
       { customers, currentCustomer }
     ) => {
-      let customer = await customers.findOne({ email });
+      let customer = await customers.findOne({ username });
       if (!customer) {
-        throw new Error(`Account with email: ${email} not found.`);
+        throw new Error(`Account with that username: ${username} not found.`);
       }
       if (bcrypt.compareSync(password, customer.password)) {
         currentCustomer = customer;
         const token = jwt.sign(
-          { email: currentCustomer.email },
+          { username: currentCustomer.username },
           process.env.SECRET
         );
         currentCustomer.token = token;
@@ -59,24 +59,39 @@ const resolvers = {
         throw new Error("Incorrect password.");
       }
     },
-    checkOut: async (parent, args, { pets, customers, currentCustomer }) => {
-      let petsArray = args.pets.map(async pet => {
-        if (pets.findOne({ name: pet })) {
-          let foundCustomer = await customers.replaceOne(
-            {
-              id: currentCustomer.id
-            },
-            {
-              ...currentCustomer,
-              currentPets: currentCustomer.currentPets.push(pet)
-            },
-            { upsert: true }
-          );
-          console.log(foundCustomer.ops);
-        }
-      });
+    checkOut: async (
+      parent,
+      { id },
+      { pets, customers, checkouts, currentCustomer }
+    ) => {
+      if (!currentCustomer) {
+        throw new Error("You have to be logged in to check out a pet.");
+      }
+      let pet = await checkouts.findOne({ petId: id });
+      let petExists = await pets.findOne({ id });
+      if (pet) {
+        throw new Error("Sorry, this pet is already checked out.");
+      } else if (petExists) {
+        let currentTime = new Date();
+        let checkout = {
+          petId: id,
+          username: currentCustomer.username,
+          dueDate: new Date(currentTime.getTime() + 3 * 60000).toISOString()
+        };
 
-      Promise.all(petsArray).then(console.log);
+        await checkouts.replaceOne(checkout, checkout, {
+          upsert: true
+        });
+        return {
+          customer: await customers.findOne({
+            username: currentCustomer.username
+          }),
+          pet: await pets.findOne({ id }),
+          dueDate: checkout.dueDate
+        };
+      } else {
+        throw new Error("This pet does not exist.");
+      }
     }
   }
 };
@@ -86,21 +101,25 @@ const start = async () => {
     useNewUrlParser: true
   });
 
+  const db = client.db();
+
   const context = async ({ req }) => {
     const pets = db.collection("pets");
     const customers = db.collection("customers");
+    const checkouts = db.collection("checkouts");
     let currentCustomer;
-    const token = req ? req.headers.authorization.replace("Bearer ", "") : null;
+    const token = req.headers.authorization
+      ? req.headers.authorization.replace("Bearer ", "")
+      : null;
 
     if (token) {
       const decoded = jwt.verify(token, process.env.SECRET);
-      currentCustomer = await customers.findOne({ email: decoded.email });
+      currentCustomer = await customers.findOne({ username: decoded.username });
     }
 
-    return { pets, customers, currentCustomer };
+    return { pets, customers, checkouts, currentCustomer };
   };
 
-  const db = client.db();
   const server = new ApolloServer({
     typeDefs,
     resolvers,
