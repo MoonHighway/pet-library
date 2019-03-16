@@ -4,6 +4,7 @@ const { MongoClient } = require("mongodb");
 const bcrypt = require("bcrypt");
 const { generate } = require("shortid");
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
 
 const typeDefs = readFileSync("./typeDefs.graphql", "UTF-8");
 
@@ -52,12 +53,45 @@ const resolvers = {
         return allPetsArray;
       }
     },
+    petById: (parent, { id }, { pets }) => pets.findOne({ id }),
+    allCustomers: (parent, args, { customers }) => customers.find().toArray(),
     me: (parent, args, { currentCustomer }) => currentCustomer
   },
+  Customer: {
+    currentPets: async (parent, args, { pets, checkouts }) => {
+      let allPetsArray = await pets.find().toArray();
+      let checkedOutPetsArray = await checkouts
+        .find({ username: parent.username })
+        .toArray();
+      let checkoutIdsArray = checkedOutPetsArray.map(pet => pet.petId);
+      if (checkedOutPetsArray !== []) {
+        let petList = allPetsArray.filter(pet =>
+          checkoutIdsArray.includes(pet.id)
+        );
+        return petList;
+      }
+    }
+  },
   Pet: {
+    inCareOf: async (parent, args, { customers, checkouts }) => {
+      let user = await checkouts.findOne({ petId: parent.id });
+      if (user) {
+        return customers.findOne({ username: user.username });
+      } else {
+        return null;
+      }
+    },
     checkedOut: async (parent, args, { checkouts }) => {
       let checkedOutPet = await checkouts.findOne({ petId: parent.id });
       return checkedOutPet ? true : false;
+    },
+    dueBack: async (parent, args, { checkouts }) => {
+      let checkedOut = await checkouts.findOne({ petId: parent.id });
+      if (checkedOut) {
+        return moment(checkedOut.dueDate).fromNow();
+      } else {
+        return null;
+      }
     }
   },
   Mutation: {
