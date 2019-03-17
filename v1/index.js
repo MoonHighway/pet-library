@@ -4,7 +4,6 @@ const { MongoClient } = require("mongodb");
 const bcrypt = require("bcrypt");
 const { generate } = require("shortid");
 const jwt = require("jsonwebtoken");
-const moment = require("moment");
 
 const typeDefs = readFileSync("./typeDefs.graphql", "UTF-8");
 
@@ -57,6 +56,18 @@ const resolvers = {
     allCustomers: (parent, args, { customers }) => customers.find().toArray(),
     me: (parent, args, { currentCustomer }) => currentCustomer
   },
+  Checkout: {
+    pet: (parent, args, { pets }) => pets.findOne({ id: parent.petId }),
+    checkOutDate: parent => parent.checkoutDate,
+    checkInDate: parent => parent.checkInDate,
+    late: parent => {
+      let date = new Date(parent.checkoutDate);
+      let plusThree = date.getTime() + 3 * 60000;
+      let dueString = new Date(plusThree).toISOString();
+
+      return parent.checkInDate > dueString ? true : false;
+    }
+  },
   Customer: {
     currentPets: async (parent, args, { pets, checkouts }) => {
       let allPetsArray = await pets.find().toArray();
@@ -91,14 +102,6 @@ const resolvers = {
         let date = new Date(checkoutDate.checkoutDate);
         let plusThree = date.getTime() + 3 * 60000;
         return new Date(plusThree).toISOString();
-      } else {
-        return null;
-      }
-    },
-    dueBack: async (parent, args, { checkouts }) => {
-      let checkedOut = await checkouts.findOne({ petId: parent.id });
-      if (checkedOut) {
-        return moment(checkedOut.checkoutDate).fromNow();
       } else {
         return null;
       }
@@ -208,13 +211,19 @@ const resolvers = {
           }
         );
 
-        let checkoutHistoryArray = currentCustomer.checkoutHistory;
+        let checkinDate = await customers.findOne({ id: currentCustomer.id });
+        let checkinArray = checkinDate.checkoutHistory;
+        let lastCheckout = checkinArray[checkinArray.length - 1];
+
+        let checkoutDateToChange = new Date(pet.checkoutDate);
+        let plusThree = checkoutDateToChange.getTime() + 3 * 60000;
+        let lateDate = new Date(plusThree).toISOString();
+
         let checkout = {
           pet: await pets.findOne({ id }),
           checkOutDate: pet.checkoutDate,
-          checkInDate:
-            checkoutHistoryArray[checkoutHistoryArray.length - 1].checkInDate,
-          late: false
+          checkInDate: lastCheckout.checkInDate,
+          late: lastCheckout.checkInDate > lateDate ? true : false
         };
 
         await checkouts.deleteOne({ petId: id });
@@ -252,9 +261,7 @@ const start = async () => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context,
-    mocks: true,
-    mockEntireSchema: false
+    context
   });
 
   server.listen().then(({ url }) => console.log(`Server running at ${url}`));

@@ -6,7 +6,6 @@ type Pet {
   checkedOut: Boolean
   photo: Photo
   dueDate: String
-  dueBack: String
   inCareOf: Customer
 }
 
