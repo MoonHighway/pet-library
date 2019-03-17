@@ -85,10 +85,20 @@ const resolvers = {
       let checkedOutPet = await checkouts.findOne({ petId: parent.id });
       return checkedOutPet ? true : false;
     },
+    dueDate: async (parent, args, { checkouts }) => {
+      let checkoutDate = await checkouts.findOne({ petId: parent.id });
+      if (checkoutDate) {
+        let date = new Date(checkoutDate.checkoutDate);
+        let plusThree = date.getTime() + 3 * 60000;
+        return new Date(plusThree).toISOString();
+      } else {
+        return null;
+      }
+    },
     dueBack: async (parent, args, { checkouts }) => {
       let checkedOut = await checkouts.findOne({ petId: parent.id });
       if (checkedOut) {
-        return moment(checkedOut.dueDate).fromNow();
+        return moment(checkedOut.checkoutDate).fromNow();
       } else {
         return null;
       }
@@ -108,6 +118,7 @@ const resolvers = {
           name,
           username,
           currentPets: [],
+          checkoutHistory: [],
           password: hash
         };
         await customers.insertOne(newCustomer);
@@ -153,11 +164,10 @@ const resolvers = {
       if (pet) {
         throw new Error("Sorry, this pet is already checked out.");
       } else if (petExists) {
-        let currentTime = new Date();
         let checkout = {
           petId: id,
           username: currentCustomer.username,
-          dueDate: new Date(currentTime.getTime() + 3 * 60000).toISOString()
+          checkoutDate: new Date().toISOString()
         };
 
         await checkouts.replaceOne(checkout, checkout, {
@@ -168,10 +178,48 @@ const resolvers = {
             username: currentCustomer.username
           }),
           pet: await pets.findOne({ id }),
-          dueDate: checkout.dueDate
+          checkoutDate: checkout.checkoutDate
         };
       } else {
         throw new Error("This pet does not exist.");
+      }
+    },
+    checkIn: async (
+      parent,
+      { id },
+      { pets, customers, checkouts, currentCustomer }
+    ) => {
+      if (!currentCustomer) {
+        throw new Error("You have to be logged in to check in a pet.");
+      }
+      let pet = await checkouts.findOne({ petId: id });
+      if (!pet) {
+        throw new Error("This pet is not checked out.");
+      } else {
+        await customers.updateOne(
+          { id: currentCustomer.id },
+          {
+            $set: {
+              checkoutHistory: [
+                ...currentCustomer.checkoutHistory,
+                { ...pet, checkInDate: new Date().toISOString() }
+              ]
+            }
+          }
+        );
+
+        let checkoutHistoryArray = currentCustomer.checkoutHistory;
+        let checkout = {
+          pet: await pets.findOne({ id }),
+          checkOutDate: pet.checkoutDate,
+          checkInDate:
+            checkoutHistoryArray[checkoutHistoryArray.length - 1].checkInDate,
+          late: false
+        };
+
+        await checkouts.deleteOne({ petId: id });
+
+        return checkout;
       }
     }
   }

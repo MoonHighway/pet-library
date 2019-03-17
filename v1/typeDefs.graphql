@@ -5,6 +5,7 @@ type Pet {
   category: PetCategory!
   checkedOut: Boolean
   photo: Photo
+  dueDate: String
   dueBack: String
   inCareOf: Customer
 }
@@ -13,6 +14,7 @@ type Customer {
   username: ID!
   name: String!
   currentPets: [Pet!]!
+  checkoutHistory: [Checkout!]!
 }
 
 type Photo {
@@ -46,7 +48,14 @@ type LogInPayload {
 type CheckOutPayload {
   customer: Customer
   pet: Pet
-  dueDate: String!
+  checkoutDate: String!
+}
+
+type Checkout {
+  pet: Pet
+  checkOutDate: String!
+  checkInDate: String!
+  late: Boolean
 }
 
 type Query {
@@ -61,4 +70,5 @@ type Mutation {
   createAccount(input: CreateAccountInput!): Customer!
   logIn(username: ID!, password: String!): LogInPayload!
   checkOut(id: ID!): CheckOutPayload!
+  checkIn(id: ID!): Checkout!
 }
