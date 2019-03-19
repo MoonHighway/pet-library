@@ -258,13 +258,17 @@ const start = async () => {
     return { pets, customers, checkouts, currentCustomer };
   };
 
+  const PORT = process.env.PORT || 4000;
+
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     context
   });
 
-  server.listen().then(({ url }) => console.log(`Server running at ${url}`));
+  server
+    .listen({ port: PORT })
+    .then(({ port }) => console.log(`Server running at ${port}`));
 };
 
 start();
