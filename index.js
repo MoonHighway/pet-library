@@ -235,7 +235,7 @@ const resolvers = {
 };
 
 const start = async () => {
-  const client = await MongoClient.connect(process.env.DB_HOST, {
+  const client = await MongoClient.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true
   });
 
