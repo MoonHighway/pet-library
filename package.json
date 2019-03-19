@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -r dotenv/config ."
+    "start": "node index.js",
+    "dev": "nodemon -r dotenv/config ."
   },
   "keywords": [],
   "author": "",
