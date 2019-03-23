@@ -1,17 +1,20 @@
+scalar Date
+
 type Pet {
   id: ID!
   name: String!
   weight: Float
   category: PetCategory!
-  checkedOut: Boolean
+  status: PetStatus
   photo: Photo
-  dueDate: String
+  dueDate: Date
   inCareOf: Customer
 }
 
 type Customer {
   username: ID!
   name: String!
+  dateCreated: Date
   currentPets: [Pet!]!
   checkoutHistory: [Checkout!]!
 }
@@ -47,13 +50,13 @@ type LogInPayload {
 type CheckOutPayload {
   customer: Customer
   pet: Pet
-  checkoutDate: String!
+  checkoutDate: Date
 }
 
 type Checkout {
   pet: Pet
-  checkOutDate: String!
-  checkInDate: String!
+  checkOutDate: Date!
+  checkInDate: Date!
   late: Boolean
 }
 
@@ -61,6 +64,7 @@ type Query {
   totalPets(status: PetStatus): Int!
   allPets(category: PetCategory, status: PetStatus): [Pet!]!
   petById(id: ID!): Pet!
+  totalCustomers: Int!
   allCustomers: [Customer!]!
   me: Customer
 }
