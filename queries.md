@@ -8,16 +8,6 @@ query {
 }
 ```
 
-_Response_
-
-```json
-{
-  "data": {
-    "totalPets": 131
-  }
-}
-```
-
 ## 2. Query a List of Objects with GraphQL
 
 ```graphql
@@ -29,22 +19,6 @@ query {
 }
 ```
 
-_Response_
-
-```json
-{
-  "data": {
-    "allPets": [
-      {
-        "name": "Sandwich",
-        "weight": 9.5
-      }
-      ...
-    ]
-  }
-}
-```
-
 ## 3. Query an Enumeration Type with GraphQL
 
 ```graphql
@@ -52,22 +26,6 @@ query PetNamesAndCategories {
   allPets {
     name
     category
-  }
-}
-```
-
-_Response_
-
-```json
-{
-  "data": {
-    "allPets": [
-      {
-        "name": "Sandwich",
-        "category": "CAT"
-      }
-      ...
-    ]
   }
 }
 ```
@@ -90,44 +48,11 @@ query PetInfo {
 }
 ```
 
-_Response_
-
-```json
-{
-  "data": {
-    "totalPets": 131,
-    "allPets": [
-      {
-        "name": "Sandwich",
-        "category": "CAT",
-        "weight": 9.5,
-        "checkedOut": true,
-        "photo": {
-          "full": "/img/sandwich-full.jpg",
-          "thumb": "/img/sandwich-thumb.jpg"
-        }
-      }
-      ...
-    ]
-  }
-}
-```
-
 ## 5. Filter a GraphQL Query Result Using Arguments
 
 ```graphql
 query CheckedOutPets {
-  totalPets(checkedOut: true)
-}
-```
-
-_Response_
-
-```json
-{
-  "data": {
-    "totalPets": 22
-  }
+  totalPets(status: CHECKEDOUT)
 }
 ```
 
@@ -143,28 +68,11 @@ query CatsInLibrary {
 }
 ```
 
-_Response_
-
-```json
-{
-  "data": {
-    "allPets": [
-      {
-        "name": "Sandwich",
-        "category": "CAT",
-        "checkedOut": true
-      }
-      ...
-    ]
-  }
-}
-```
-
 - Test with Multiple Argument Filters
 
 ```graphql
 query CheckedOutCats {
-  allPets(category: CAT, checkedOut: false) {
+  allPets(category: CAT, status: AVAILABLE) {
     name
     category
     checkedOut
@@ -172,28 +80,11 @@ query CheckedOutCats {
 }
 ```
 
-_Response_
-
-```json
-{
-  "data": {
-    "allPets": [
-      {
-        "name": "Hot Dog",
-        "category": "CAT",
-        "checkedOut": true
-      }
-      ...
-    ]
-  }
-}
-```
-
 ## 7. Use Variables to Filter a Query Result with GraphQL
 
 ```graphql
-query($category: PetCategory, $checkedOut: Boolean) AllPets {
-  allPets(category: $category, checkedOut: $checkedOut) {
+query($category: PetCategory, $status: PetStatus) AllPets {
+  allPets(category: $category, status: $status) {
     name
     category
     checkedOut
@@ -206,24 +97,7 @@ _Query Variables Passed as JSON_
 ```json
 {
   "category": "DOG",
-  "checkedOut": true
-}
-```
-
-_Response_
-
-```json
-{
-  "data": {
-    "allPets": [
-      {
-        "name": "Einstein",
-        "category": "DOG",
-        "checkedOut": true
-      }
-      ...
-    ]
-  }
+  "status": "CHECKEDOUT"
 }
 ```
 
@@ -232,8 +106,8 @@ _Response_
 - Connect Pet to Customer
 
 ```graphql
-query($name: String!) {
-  petByName(name: $name) {
+query($id: String!) {
+  petById(id: $id) {
     name
     inCareOf {
       name
@@ -247,23 +121,7 @@ _query vars_
 
 ```json
 {
-  "name": "Biscuit"
-}
-```
-
-_Response_
-
-```json
-{
-  "data": {
-    "petByName": {
-      "name": "Freddie",
-      "inCareOf": {
-        "name": "Don Levy",
-        "username": "donman"
-      }
-    }
-  }
+  "id": "C-1"
 }
 ```
 
@@ -281,65 +139,22 @@ query {
 }
 ```
 
-_response_
-
-```json
-{
-  "data": {
-    "allCustomers": [
-      {
-        "name": "Don Levy",
-        "username": "donman",
-        "currentPets": [
-          {
-            "name": "Hot Dog"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
 ## 9. Use GraphQL Aliases to Rename Response Fields
 
 ```graphql
 query {
-  biscuit: petByName(name: "Biscuit") {
+  biscuit: petById(name: "C-1") {
     name
     type
     photo {
       thumb
     }
   }
-  jungle: petByName(name: "Jungle") {
+  jungle: petByName(name: "C-2") {
     name
     type
     photo {
       thumb
-    }
-  }
-}
-```
-
-_response_
-
-```json
-{
-  "data": {
-    "biscuit": {
-      "name": "Biscuit",
-      "type": "CAT",
-      "photo": {
-        "thumb": "/img/biscuit-thumb.jpg"
-      }
-    },
-    "jungle": {
-      "name": "Jungle",
-      "type": "CAT",
-      "photo": {
-        "thumb": "/img/jungle-thumb.jpg"
-      }
     }
   }
 }
@@ -349,8 +164,8 @@ _response_
 
 ```graphql
 query AllData {
-  availablePets: totalPets(checkedOut: true)
-  unavailablePets: totalPets(checkedOut: false)
+  availablePets: totalPets(status: AVAILABLE)
+  unavailablePets: totalPets(status: CHECKEDOUT)
   allPets {
     name
     category
@@ -381,8 +196,8 @@ query AllData {
 
 ```graphql
 query PetsPage {
-  availablePets: totalPets(checkedOut: true)
-  unavailablePets: totalPets(checkedOut: false)
+  availablePets: totalPets(status: AVAILABLE)
+  unavailablePets: totalPets(status: CHECKEDOUT)
   allPets {
     name
     category
@@ -399,45 +214,12 @@ query PetsPage {
   }
 }
 query CustomersPage {
-  totalCustomers
   allCustomers {
     name
     username
     currentPets {
       name
     }
-  }
-}
-```
-
-## 11. Send a Mutation to Change GraphQL Data
-
-```graphql
-query {
-  isOpen
-}
-```
-
-```json
-{
-  "data": {
-    "isOpen": false
-  }
-}
-```
-
-```graphql
-mutation {
-  openLibrary
-}
-```
-
-_Response_
-
-```json
-{
-  "data": {
-    "openLibrary": true
   }
 }
 ```
@@ -551,92 +333,9 @@ _Response_
 
 ```graphql
 mutation {
-  checkOut(pet: "C-1") {
+  checkOut(id: "C-1") {
     name
     dueDate
-    totalPets
-  }
-}
-```
-
-- Try again with pet that doesn't exist
-
-```graphql
-mutation {
-  checkOut(pets: ["Jungle", "Wish"]) {
-    name
-    dueDate
-    totalPets
-  }
-}
-```
-
-_Response_
-
-```json
-{
-  "data": {
-    "checkOut": {
-      "name": "Bill Blandson",
-      "dueDate": "timestamp",
-      "totalPets": 1
-    }
-  },
-  "errors": ["Pet doesn't exist"]
-}
-```
-
-- Try again with too many pets
-
-```graphql
-mutation {
-  checkOut(pets: ["Jungle", "Biscuit", "Rocky", "Spectator"]) {
-    name
-    dueDate
-    totalPets
-  }
-}
-```
-
-_Response_
-
-```json
-{
-  "data": {
-    "checkOut": {
-      "name": "Bill Blandson",
-      "dueDate": "some date",
-      "totalPets": 3
-    }
-  },
-  "errors": ["custom error"]
-}
-```
-
-```graphql
-query {
-  me {
-    currentPets {
-      name
-      dueDate
-    }
-  }
-}
-```
-
-_Response_
-
-```json
-{
-  "data": {
-    "me": {
-      "currentPets": [
-        {
-          "name": "Whale",
-          "dueDate": "Timestamp"
-        }
-      ]
-    }
   }
 }
 ```
