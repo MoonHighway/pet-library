@@ -1,77 +1,175 @@
+"""
+A custom type describing a date object serialized as an ISO String
+"""
 scalar Date
 
+"""
+The Pet Library would not be the Pet Library without a `Pet`. The `Pet` type describes an animal that is part of the pet database. Once a `Pet` has been added to the Pet Library, the pet can be checked in and checked out of the library.
+"""
 type Pet {
+  "A unique identifier for each `Pet`. This value also serves as a lookup for the `petById` query."
   id: ID!
+  "The pet's given name"
   name: String!
+  "The weight (in pounds) of the pet in question"
   weight: Float
+  "The category that this pet belongs to. Must one of the values of the `PetCategory` enumerator: CAT, DOG, RABBIT, or STINGRAY"
   category: PetCategory!
+  "The current checkout status of the pet. Must one of the values of the `PetStatus` enumerator: AVAILABLE or CHECKEDOUT."
   status: PetStatus
+  "A `Photo` type. The `Photo` type is an object containing `thumb` and `full` for thumbnail and fullsize image links."
   photo: Photo
+  "If this pet is checked out (status: CHECKEDOUT), this field will return a date string describing when the pet is due back. Always return pets on time."
   dueDate: Date
+  "If this pet is checked out (status: CHECKEDOUT), this field will return the `Customer` who checked this `Pet` out and is responsible for is security and overall happiness"
   inCareOf: Customer
 }
 
+"""
+Anyone who has created an account at the Pet Library is a `Customer`. Customers can login and checkout/checkin pets to the Pet Library.
+"""
 type Customer {
+  "A unique username for the `Customer`."
   username: ID!
+  "The `Customer`'s name as a string."
   name: String!
+  "The date that this `Customer` was created (whenever the `createAccount` mutation was sent)."
   dateCreated: Date
+  "Returns a list of `Pet` objects that the `Customer` currently has checked out. If the `Customer` does not have any pets checked out, this value will be an empty array."
   currentPets: [Pet!]!
+  "Returns a list of `Checkout`s, objects that describe a pet checkout transaction. If the `Customer` has never checked out a pet, this value will be an empty array."
   checkoutHistory: [Checkout!]!
 }
 
+"""
+Each `Pet` has a `Photo`, and this object describes the structure of that `Photo`: a fullsize and thumbnail version of the same `Pet` photo.
+"""
 type Photo {
+  "The url for a fullsize photo of a `Pet`."
   full: String
+  "The url for a thumbnail photo of a `Pet`."
   thumb: String
 }
 
+"""
+This enumeration type describes the category that the `Pet` fits into. Additional types could be added to this enum as the Pet Library grows.
+"""
 enum PetCategory {
+  "A small, carnivorous mammal, usually sleeping."
   CAT
+  "A wolf descendent that you can dress in little jackets"
   DOG
+  "A long-eared hopping animal, often associated with jellybeans."
   RABBIT
+  "A cartilaginous fish related to sharks common to coastal tropical and subtropical waters that the Pet Library will let you take home for some reason."
   STINGRAY
 }
 
+"""
+This enumeration type tells us whether or not a pet is checked out. If `AVAILABLE`, a `Customer` can take this pet home. If `CHECKEDOUT`, a `Customer` has to wait for the pet to be returned.
+"""
 enum PetStatus {
+  "A `Pet` with this status can be checked out."
   AVAILABLE
+  "A `Pet` with this status has already been checked out and is unavailable."
   CHECKEDOUT
 }
 
+"""
+When a user creates an account, they must send `name`, `username`, and `password` to the `createAccount` mutation. This input type wraps those fields into one fancy object.
+"""
 input CreateAccountInput {
+  "A `Customer`'s full name."
   name: String!
+  "A `Customer`'s unique user name."
   username: ID!
+  "A `Customer`'s password."
   password: String!
 }
 
+"""
+When a `Customer` logs in to the Pet Library, they can get their token and customer information from the `LogInPayload` type. This is how user authentication is handled at the library.
+"""
 type LogInPayload {
+  "The entire `Customer` object for the recently logged in individual."
   customer: Customer
+  "The authorization token that can be used to run queries and mutations that require login."
   token: String!
 }
 
+"""
+Checking out a `Pet` is a dream come true for many people. Receiving `customer`, `pet`, and `checkoutDate` back as an object from the `checkOut` mutation is a dream come true for a pet librarian and a GraphQL enthusiast.
+"""
 type CheckOutPayload {
+  "The entire `Customer` object for the customer who just checked out a pet."
   customer: Customer
+  "The entire `Pet` object for the pet who was just checked out."
   pet: Pet
+  "The date that this `Pet` was checked out. This is used to calculate the due date."
   checkoutDate: Date
 }
 
+"""
+Every time a `Pet` is checked out, a record of that `Checkout` is logged. This provides information about the pet, when the pet was checked out and in, and whether or not the pet was late. If you want to find out if a `Customer` is a delinquent, look for the `Checkout` type.
+"""
 type Checkout {
+  "The entire `Pet` object for the pet who was just checked out."
   pet: Pet
+  "The date that this `Pet` was checked out. This is used to calculate the dueDate."
   checkOutDate: Date!
+  "The date that this `Pet` was checked out. This is used to calculate the dueDate."
   checkInDate: Date!
+  "A boolean flag to indicate whether the `Pet` was checked in late. If this value is true, this means that you blocked another person from checking out a `Pet`. You can do better than that."
   late: Boolean
 }
 
+"""
+All of the Pet Library's root query types can be found in the `Query`. This list defines all of the data you can ask for with a query.
+"""
 type Query {
-  totalPets(status: PetStatus): Int!
-  allPets(category: PetCategory, status: PetStatus): [Pet!]!
-  petById(id: ID!): Pet!
+  "This query returns the total number of `Pet`s that are part of the Pet Library."
+  totalPets(
+    "OPTIONAL: `status` is an optional filter that can be sent to return only the `AVAILABLE` pets or only the `CHECKEDOUT` pets."
+    status: PetStatus
+  ): Int!
+  "This query returns all of the data about the `Pets`. This is a list of `Pet` objects that are part of the Pet Library."
+  allPets(
+    "OPTIONAL: `category` is an optional filter that can be sent to return a certain type of `Pet`: `CAT`, `DOG`, `RABBIT` and `STINGRAY`"
+    category: PetCategory
+    "OPTIONAL: `status` is an optional filter that can be sent to return only the `AVAILABLE` pets or only the `CHECKEDOUT` pets."
+    status: PetStatus
+  ): [Pet!]!
+  "Use this query to return one `Pet` by ID. If you're not sure what the ID is, send an `allPets` query to find the pet you want to view."
+  petById(
+    "REQUIRED: Sending an `id` will return a pet that has that ID."
+    id: ID!
+  ): Pet!
+  "This query returns the total number of customers that are Pet Library members."
   totalCustomers: Int!
+  "This query returns all of the data about the customers. This is a list of `Customer` objects that are members of the Pet Library."
   allCustomers: [Customer!]!
+  "When a `Customer` is logged in and has a valid authorization token, they can send the `me` query to return data about themselves. `me` will return `null` if a `Customer` is not logged in."
   me: Customer
 }
 
+"""
+All of the Pet Library's root mutation types can be found in the `Mutation`. Any types of data changes you want to make can be found here.
+"""
 type Mutation {
-  createAccount(input: CreateAccountInput!): Customer!
-  logIn(username: ID!, password: String!): LogInPayload!
+  "When you need to create an account at the Pet Library, you'll need to send this mutation. Your name + username + password is all you need to be given dominion over cats, dogs, rabbits, and/or stingrays."
+  createAccount(
+    "REQUIRED: Send `username`, `name`, and `password` as arguments"
+    input: CreateAccountInput!
+  ): Customer!
+  "A mutation used to log in a registered user. If you haven't created an account yet, start with the `createAccount` mutation."
+  logIn(
+    "REQUIRED: Send your unique `username` as an argument to log in"
+    username: ID!
+    "REQUIRED: Send your `password` as an argument to log in"
+    password: String!
+  ): LogInPayload!
+  "A mutation used to check out a `Pet`. Once you check out a `Pet`, that pet is in your care, even the stingrays."
   checkOut(id: ID!): CheckOutPayload!
+  "A mutation used to check a `Pet` back in to the Pet Library."
   checkIn(id: ID!): Checkout!
 }
