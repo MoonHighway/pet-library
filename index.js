@@ -1,4 +1,5 @@
 const { ApolloServer } = require("apollo-server");
+const { GraphQLScalarType } = require("graphql");
 const { readFileSync } = require("fs");
 const { MongoClient } = require("mongodb");
 const bcrypt = require("bcrypt");
@@ -20,6 +21,7 @@ const resolvers = {
         return pets.countDocuments();
       }
     },
+    totalCustomers: (parent, args, { customers }) => customers.countDocuments(),
     allPets: async (parent, { category, status }, { pets, checkouts }) => {
       let allPetsArray = await pets.find().toArray();
       let categorizedPetsArray = await pets.find({ category }).toArray();
@@ -92,9 +94,9 @@ const resolvers = {
         return null;
       }
     },
-    checkedOut: async (parent, args, { checkouts }) => {
+    status: async (parent, args, { checkouts }) => {
       let checkedOutPet = await checkouts.findOne({ petId: parent.id });
-      return checkedOutPet ? true : false;
+      return !checkedOutPet ? "AVAILABLE" : "CHECKEDOUT";
     },
     dueDate: async (parent, args, { checkouts }) => {
       let checkoutDate = await checkouts.findOne({ petId: parent.id });
@@ -122,7 +124,8 @@ const resolvers = {
           username,
           currentPets: [],
           checkoutHistory: [],
-          password: hash
+          password: hash,
+          dateCreated: new Date().toISOString()
         };
         await customers.insertOne(newCustomer);
         return newCustomer;
@@ -231,7 +234,14 @@ const resolvers = {
         return checkout;
       }
     }
-  }
+  },
+  Date: new GraphQLScalarType({
+    name: "Date",
+    description: "A valid datetime value",
+    serialize: value => new Date(value).toISOString(),
+    parseValue: value => new Date(value),
+    parseLiteral: ast => new Date(ast.value)
+  })
 };
 
 const start = async () => {
