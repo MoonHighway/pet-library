@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "apollo-server": "^2.4.8",
     "bcrypt": "^3.0.4",
