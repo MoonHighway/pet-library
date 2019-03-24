@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "import": "node -r dotenv/config ./import-data",
+    "postinstall": "node ./import-data",
     "start": "node index.js",
     "dev": "nodemon -r dotenv/config . -e graphql,js,json"
   },

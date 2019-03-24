@@ -245,7 +245,10 @@ const resolvers = {
 };
 
 const start = async () => {
-  const client = await MongoClient.connect(process.env.MONGODB_URI, {
+  const uri =
+    process.env.MONGODB_URI || "mongodb://localhost:27017/pet-library";
+  console.log("connection to ", uri);
+  const client = await MongoClient.connect(uri, {
     useNewUrlParser: true
   });
 
