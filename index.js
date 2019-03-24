@@ -273,7 +273,9 @@ const start = async () => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context
+    context,
+    mocks: true,
+    mockEntireSchema: false
   });
 
   server
