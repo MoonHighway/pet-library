@@ -264,8 +264,14 @@ const start = async () => {
       : null;
 
     if (token) {
-      const decoded = jwt.verify(token, process.env.SECRET);
-      currentCustomer = await customers.findOne({ username: decoded.username });
+      try {
+        const decoded = jwt.verify(token, process.env.SECRET);
+        currentCustomer = await customers.findOne({
+          username: decoded.username
+        });
+      } catch (e) {
+        console.log("context token error: ", e.message);
+      }
     }
 
     return { pets, customers, checkouts, currentCustomer };
