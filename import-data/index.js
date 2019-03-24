@@ -32,33 +32,22 @@ const start = async () => {
   let db;
 
   //
-  // Make sure user has set environment variable
-  //
-
-  if (!process.env.MONGODB_URI) {
-    console.log(`
-      
-Error: MONGODB_URI environment variable missing
-
-Do you have a .env file?
-Have you setup Environment variables?
-      
-      `);
-    process.exit(1);
-  }
-
-  //
   // Connect to Mongo Database
   //
 
   try {
-    console.log("connecting to ", process.env.MONGODB_URI);
-    const client = await MongoClient.connect(process.env.MONGODB_URI, {
+    let uri =
+      process.env.MONGODB_URI || "mongodb://localhost:27017/pet-library";
+    console.log("connecting to ", uri);
+    const client = await MongoClient.connect(uri, {
       useNewUrlParser: true
     });
     db = client.db();
   } catch (e) {
-    console.log("error connection to mongodb at ", process.env.MONGODB_URI);
+    console.log(
+      "error connection to mongodb at ",
+      process.env.MONGODB_URI || "mongodb://localhost:27017/pet-library"
+    );
     console.log("ERROR: ", e.message);
     process.exit(1);
   }
