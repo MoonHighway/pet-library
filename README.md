@@ -32,7 +32,8 @@ yarn
 ```
 
 3. Set up Mongo Locally
-   This project will use Mongo as a database. If you aren't a user of Mongo already, you can install Mongo locally, or use [mLab](https://mlab.com), a cloud-based version of Mongo, for this app.
+
+This project will use Mongo as a database. If you aren't a user of Mongo already, you can install Mongo locally, or use [mLab](https://mlab.com), a cloud-based version of Mongo, for this app.
 
 For further installation instructions, check out these resources:
 
