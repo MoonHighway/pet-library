@@ -6,7 +6,7 @@
   "scripts": {
     "import": "node -r dotenv/config ./import-data",
     "postinstall": "node ./import-data",
-    "start": "node index.js",
+    "start": "node ./src",
     "dev": "nodemon -r dotenv/config ./src -e graphql,js"
   },
   "keywords": [],
