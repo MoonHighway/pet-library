@@ -12,14 +12,14 @@ The Pet Library is a real pet library checkout system for a fake pet library. Th
 
 ## Installation
 
-1. Clone or download this repository.
+### 1. Clone or download this repository.
 
 ```
 git clone https://github.com/moonhighway/pet-library.git
 cd pet-library
 ```
 
-2. Install the dependencies
+### 2. Install the dependencies.
 
 ```
 npm install
@@ -31,7 +31,7 @@ Or use yarn:
 yarn
 ```
 
-3. Set up Mongo Locally
+### 3. Set up Mongo locally.
 
 This project will use Mongo as a database. If you aren't a user of Mongo already, you can install Mongo locally, or use [mLab](https://mlab.com), a cloud-based version of Mongo, for this app.
 
@@ -41,7 +41,9 @@ For further installation instructions, check out these resources:
 - [Mongo Installation for PC](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 - [Local Instructions for Mongo & mLab](https://gist.github.com/eveporcello/e80a90f39de3b63a9c20136536f477df)
 
-4. Add a `.env` file to the root of your project. You will need to add variables for `MONGODB_URI` and `SECRET`.
+### 4. Add a `.env` file to the root of your project.
+
+You will need to add variables for `MONGODB_URI` and `SECRET`.
 
 - `MONGODB_URI` is the route where your installation of Mongo is running. This usually runs at `mongodb://localhost:27017/pet-library`.
 - `SECRET` is just a text string (can be anything) so that the user auth works as expected:
