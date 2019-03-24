@@ -6,23 +6,115 @@ scalar Date
 """
 The Pet Library would not be the Pet Library without a `Pet`. The `Pet` type describes an animal that is part of the pet database. Once a `Pet` has been added to the Pet Library, the pet can be checked in and checked out of the library.
 """
-type Pet {
+interface Pet {
   "A unique identifier for each `Pet`. This value also serves as a lookup for the `petById` query."
   id: ID!
   "The pet's given name"
   name: String!
-  "The weight (in pounds) of the pet in question"
+  "The weight (in pounds) of the pet in question."
   weight: Float
-  "The category that this pet belongs to. Must one of the values of the `PetCategory` enumerator: CAT, DOG, RABBIT, or STINGRAY"
-  category: PetCategory!
   "The current checkout status of the pet. Must one of the values of the `PetStatus` enumerator: AVAILABLE or CHECKEDOUT."
   status: PetStatus
   "A `Photo` type. The `Photo` type is an object containing `thumb` and `full` for thumbnail and fullsize image links."
   photo: Photo
   "If this pet is checked out (status: CHECKEDOUT), this field will return a date string describing when the pet is due back. Always return pets on time."
   dueDate: Date
-  "If this pet is checked out (status: CHECKEDOUT), this field will return the `Customer` who checked this `Pet` out and is responsible for is security and overall happiness"
+  "If this pet is checked out (status: CHECKEDOUT), this field will return the `Customer` who checked this `Pet` out and is responsible for is security and overall happiness."
   inCareOf: Customer
+}
+
+"""
+A `Cat` is a small, carnivorous mammal who is usually sleeping.
+"""
+type Cat implements Pet {
+  "A unique identifier for each `Cat`."
+  id: ID!
+  "The cat's given name"
+  name: String!
+  "The weight (in pounds) of the cat in question."
+  weight: Float
+  "The current checkout status of the cat. Must one of the values of the `PetStatus` enumerator: AVAILABLE or CHECKEDOUT."
+  status: PetStatus
+  "A `Photo` type. The `Photo` type is an object containing `thumb` and `full` for thumbnail and fullsize image links."
+  photo: Photo
+  "If this cat is checked out (status: CHECKEDOUT), this field will return a date string describing when the cat is due back. Always return cats on time."
+  dueDate: Date
+  "If this pet is checked out (status: CHECKEDOUT), this field will return the `Customer` who checked this `Cat` out and is responsible for is security and overall happiness."
+  inCareOf: Customer
+  "The number of hours a cat sleeps per day."
+  sleepAmount: Int
+  "A Boolean describing whether or not this `Cat` is curious. This is almost always `true`."
+  curious: Boolean
+}
+
+"""
+A `Dog` is a wolf descendent that you can dress in a little jacket.
+"""
+type Dog implements Pet {
+  "A unique identifier for each `Dog`."
+  id: ID!
+  "The dog's given name."
+  name: String!
+  "The weight (in pounds) of the dog in question."
+  weight: Float
+  "The current checkout status of the dog. Must one of the values of the `PetStatus` enumerator: AVAILABLE or CHECKEDOUT."
+  status: PetStatus
+  "A `Photo` type. The `Photo` type is an object containing `thumb` and `full` for thumbnail and fullsize image links."
+  photo: Photo
+  "If this dog is checked out (status: CHECKEDOUT), this field will return a date string describing when the dog is due back. Always return dogs on time."
+  dueDate: Date
+  "If this dog is checked out (status: CHECKEDOUT), this field will return the `Customer` who checked this `Dog` out and is responsible for is security and overall happiness."
+  inCareOf: Customer
+  "A Boolean describing whether or not this `Dog` is a good dog. This is almost always `true`."
+  good: Boolean
+}
+
+"""
+A `Rabbit` hops and flops around.
+"""
+type Rabbit implements Pet {
+  "A unique identifier for each `Rabbit`."
+  id: ID!
+  "The rabbit's given name."
+  name: String!
+  "The weight (in pounds) of the rabbit in question."
+  weight: Float
+  "The current checkout status of the rabbit. Must one of the values of the `PetStatus` enumerator: AVAILABLE or CHECKEDOUT."
+  status: PetStatus
+  "A `Photo` type. The `Photo` type is an object containing `thumb` and `full` for thumbnail and fullsize image links."
+  photo: Photo
+  "If this rabbit is checked out (status: CHECKEDOUT), this field will return a date string describing when the rabbit is due back. Always return rabbits on time."
+  dueDate: Date
+  "If this rabbit is checked out (status: CHECKEDOUT), this field will return the `Customer` who checked this `Rabbit` out and is responsible for is security and overall happiness."
+  inCareOf: Customer
+  "This field will describe the favorite food of this particular rabbit. Don't assume it's always carrots. Rabbits contain multitudes."
+  favoriteFood: String
+  "This field describes, on a scale of 1-10 how floppy this particular rabbit is."
+  floppy: Int
+}
+
+"""
+A `Stingray` is a cartilaginous fish related to sharks common to coastal tropical and subtropical waters that the Pet Library will let you take home for some reason.
+"""
+type Stingray implements Pet {
+  "A unique identifier for each `Stingray`."
+  id: ID!
+  "The stingray's given name."
+  name: String!
+  "The weight (in pounds) of the stingray in question."
+  weight: Float
+  "The current checkout status of the stingray. Must one of the values of the `PetStatus` enumerator: AVAILABLE or CHECKEDOUT."
+  status: PetStatus
+  "A `Photo` type. The `Photo` type is an object containing `thumb` and `full` for thumbnail and fullsize image links."
+  photo: Photo
+  "If this stingray is checked out (status: CHECKEDOUT), this field will return a date string describing when the stingray is due back. Always return stingrays on time."
+  dueDate: Date
+  "If this stingray is checked out (status: CHECKEDOUT), this field will return the `Customer` who checked this `Stingray` out and is responsible for is security and overall happiness"
+  inCareOf: Customer
+  "Is this stingray chill? If so, this field will return `true`."
+  chill: Boolean
+  "Is this stingray fast? If so, this field will return `true`."
+  fast: Int
 }
 
 """
@@ -88,6 +180,16 @@ input CreateAccountInput {
 }
 
 """
+When a new customer creates an account, this object will be returned from the `createAccount` mutation.
+"""
+type CreateAccountPayload {
+  "The entire `Customer` object for the recently registered individual."
+  customer: Customer
+  "A welcome message to the new `Customer` encouraging them to log in."
+  message: String
+}
+
+"""
 When a `Customer` logs in to the Pet Library, they can get their token and customer information from the `LogInPayload` type. This is how user authentication is handled at the library.
 """
 type LogInPayload {
@@ -124,21 +226,31 @@ type Checkout {
 }
 
 """
+`SearchResult` is a union type which means that either a `Customer` or a `Pet` could be returned for each `SearchResult`.
+"""
+union SearchResult = Customer | Pet
+
+"""
 All of the Pet Library's root query types can be found in the `Query`. This list defines all of the data you can ask for with a query.
 """
 type Query {
   "This query returns the total number of `Pet`s that are part of the Pet Library."
-  totalPets(
-    "OPTIONAL: `status` is an optional filter that can be sent to return only the `AVAILABLE` pets or only the `CHECKEDOUT` pets."
-    status: PetStatus
-  ): Int!
-  "This query returns all of the data about the `Pets`. This is a list of `Pet` objects that are part of the Pet Library."
+  totalPets: Int!
+  "This query returns the number of `Pet`s that are available for checkout."
+  availablePets: Int!
+  "This query returns the number of `Pet`s that have been checked out and are not available."
+  checkedOutPets: Int!
+  "This query returns all of the data about the `Pet`s. This is a list of `Pet` objects that are part of the Pet Library."
   allPets(
-    "OPTIONAL: `category` is an optional filter that can be sent to return a certain type of `Pet`: `CAT`, `DOG`, `RABBIT` and `STINGRAY`"
-    category: PetCategory
-    "OPTIONAL: `status` is an optional filter that can be sent to return only the `AVAILABLE` pets or only the `CHECKEDOUT` pets."
-    status: PetStatus
+    "OPTIONAL: `first` is an argument that is sent to handle data paging. If the value provided is 10, then the first 10 pets will be returned."
+    first: Int
+    "OPTIONAL: If you wanted to return a list of pets starting at the 40th pet, you would send `40` as the value of the `start` argument."
+    start: Int
   ): [Pet!]!
+  "This query returns data about the `Pet`s who are currently available and not checked out."
+  allAvailablePets: [Pet!]!
+  "This query returns data about the `Pet`s who are currently checked out and are not available."
+  allCheckedOutPets: [Pet!]!
   "Use this query to return one `Pet` by ID. If you're not sure what the ID is, send an `allPets` query to find the pet you want to view."
   petById(
     "REQUIRED: Sending an `id` will return a pet that has that ID."
@@ -148,8 +260,15 @@ type Query {
   totalCustomers: Int!
   "This query returns all of the data about the customers. This is a list of `Customer` objects that are members of the Pet Library."
   allCustomers: [Customer!]!
+  "This query will return a list of all of the customers who currently have pets checked out."
+  customersWithPets: [Customer!]!
   "When a `Customer` is logged in and has a valid authorization token, they can send the `me` query to return data about themselves. `me` will return `null` if a `Customer` is not logged in."
   me: Customer
+  "The `search` query will take in a `searchString` and return any `Customer` or `Pet` records that have a match to that `searchString`."
+  search(
+    "REQUIRED: This string is used to search the current `Customer` and `Pet` records in the Pet Library"
+    searchString: String!
+  ): [SearchResult!]!
 }
 
 """
@@ -160,7 +279,7 @@ type Mutation {
   createAccount(
     "REQUIRED: Send `username`, `name`, and `password` as arguments"
     input: CreateAccountInput!
-  ): Customer!
+  ): CreateAccountPayload!
   "A mutation used to log in a registered user. If you haven't created an account yet, start with the `createAccount` mutation."
   logIn(
     "REQUIRED: Send your unique `username` as an argument to log in"
@@ -169,7 +288,17 @@ type Mutation {
     password: String!
   ): LogInPayload!
   "A mutation used to check out a `Pet`. Once you check out a `Pet`, that pet is in your care, even the stingrays."
-  checkOut(id: ID!): CheckOutPayload!
+  checkOut(
+    "This id will be used to locate the `Pet` and check them out."
+    id: ID!
+  ): CheckOutPayload!
   "A mutation used to check a `Pet` back in to the Pet Library."
-  checkIn(id: ID!): Checkout!
+  checkIn(
+    "This id will be used to locate the `Pet` and check them out."
+    id: ID!
+  ): Checkout!
+}
+
+type Subscription {
+  returnedPet: Pet
 }
