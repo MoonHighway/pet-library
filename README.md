@@ -1,7 +1,7 @@
 <p align="center">
 <img src="https://i.imgur.com/RJzoZMg.png" width="100" alt="cat"/>
-<img src="https://i.imgur.com/RJzoZMg.png" width="100" alt="cat"/>
-<img src="https://i.imgur.com/RJzoZMg.png" width="100" alt="cat"/>
+<img src="https://i.imgur.com/68QPxcs.png" width="100" alt="dog"/>
+<img src="https://i.imgur.com/GhRyeU5.png" width="100" alt="rabbit"/>
 </p>
 
 # Pet Library API
