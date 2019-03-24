@@ -1,4 +1,8 @@
-<p align="center"><img src="https://i.imgur.com/RJzoZMg.png" width="100" alt="cat"/></p>
+<p align="center">
+<img src="https://i.imgur.com/RJzoZMg.png" width="100" alt="cat"/>
+<img src="https://i.imgur.com/RJzoZMg.png" width="100" alt="cat"/>
+<img src="https://i.imgur.com/RJzoZMg.png" width="100" alt="cat"/>
+</p>
 
 # Pet Library API
 
