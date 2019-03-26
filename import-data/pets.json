@@ -3,100 +3,129 @@
     "id": "C-1",
     "name": "Biscuit",
     "weight": 10.2,
-    "category": "CAT",
     "photo": {
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
-    }
+    },
+    "sleepAmount": 21,
+    "curious": true
   },
   {
     "id": "C-2",
     "name": "Jungle",
     "weight": 9.7,
-    "category": "CAT",
     "photo": {
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
-    }
+    },
+    "sleepAmount": 16,
+    "curious": true
   },
   {
     "id": "S-1",
     "name": "Lazer",
     "weight": 15.7,
-    "category": "STINGRAY",
     "photo": {
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
-    }
+    },
+    "chill": true,
+    "fast": true
   },
   {
     "id": "R-1",
     "name": "Pip",
     "weight": 3.7,
-    "category": "RABBIT",
     "photo": {
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
-    }
+    },
+    "favoriteFood": "carrots",
+    "floppy": true
   },
   {
     "id": "R-2",
     "name": "Sweetums",
     "weight": 4.6,
-    "category": "RABBIT",
     "photo": {
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
-    }
+    },
+    "favoriteFood": "lettuce",
+    "floppy": false
   },
   {
     "id": "S-2",
     "name": "Horsey",
     "weight": 20.7,
-    "category": "STINGRAY",
     "photo": {
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
-    }
+    },
+    "chill": false,
+    "fast": true
   },
   {
     "id": "D-1",
     "name": "Warren",
     "weight": 50.4,
-    "category": "DOG",
     "photo": {
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
-    }
+    },
+    "good": true
   },
   {
     "id": "S-3",
     "name": "Star",
     "weight": 20.4,
-    "category": "STINGRAY",
     "photo": {
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
-    }
+    },
+    "chill": true,
+    "fast": false
   },
   {
     "id": "R-3",
     "name": "Jerry",
     "weight": 5.5,
-    "category": "RABBIT",
     "photo": {
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
-    }
+    },
+    "favoriteFood": "spaghetti",
+    "floppy": true
   },
   {
     "id": "D-2",
     "name": "Angelica",
     "weight": 19.9,
-    "category": "DOG",
     "photo": {
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
-    }
+    },
+    "good": true
+  },
+  {
+    "id": "D-3",
+    "name": "Camper",
+    "weight": 50.4,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "good": true
+  },
+  {
+    "id": "C-3",
+    "name": "Benji",
+    "weight": 10.9,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "sleepAmount": 20,
+    "curious": false
   }
 ]
