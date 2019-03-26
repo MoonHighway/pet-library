@@ -1,12 +1,9 @@
 module.exports = {
-  pet: (parent, args, { pets }) => pets.findOne({ id: parent.petId }),
-  checkOutDate: parent => parent.checkoutDate,
-  checkInDate: parent => parent.checkInDate,
-  late(parent) {
-    let date = new Date(parent.checkoutDate);
+  pet: ({ petId }, args, { pets }) => pets.findOne({ id: petId }),
+  late: ({ checkOutDate, checkInDate }) => {
+    let date = new Date(checkOutDate);
     let plusThree = date.getTime() + 3 * 60000;
     let dueString = new Date(plusThree).toISOString();
-
-    return parent.checkInDate > dueString ? true : false;
+    return checkInDate > dueString ? true : false;
   }
 };
