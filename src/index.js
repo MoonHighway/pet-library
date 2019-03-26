@@ -3,8 +3,12 @@ const { readFileSync } = require("fs");
 const { MongoClient } = require("mongodb");
 const jwt = require("jsonwebtoken");
 const resolvers = require("./resolvers");
+const path = require("path");
 
-const typeDefs = readFileSync("./typeDefs.graphql", "UTF-8");
+const typeDefs = readFileSync(
+  path.join(__dirname, "typeDefs.graphql"),
+  "UTF-8"
+);
 
 const start = async () => {
   const uri =
