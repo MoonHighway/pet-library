@@ -64,7 +64,7 @@ module.exports = {
       let checkout = {
         petId: id,
         username: currentCustomer.username,
-        checkoutDate: new Date().toISOString()
+        checkOutDate: new Date().toISOString()
       };
 
       await checkouts.replaceOne(checkout, checkout, {
@@ -75,7 +75,7 @@ module.exports = {
           username: currentCustomer.username
         }),
         pet: await pets.findOne({ id }),
-        checkoutDate: checkout.checkoutDate
+        checkOutDate: checkout.checkOutDate
       };
     } else {
       throw new Error("This pet does not exist.");
@@ -93,34 +93,20 @@ module.exports = {
     if (!pet) {
       throw new Error("This pet is not checked out.");
     } else {
+      let checkout = await checkouts.findOne({ petId: id });
+      delete checkout._id;
+      checkout.checkInDate = new Date().toISOString();
+
+      await checkouts.deleteOne({ petId: id });
+
       await customers.updateOne(
-        { id: currentCustomer.id },
+        { username: currentCustomer.username },
         {
           $set: {
-            checkoutHistory: [
-              ...currentCustomer.checkoutHistory,
-              { ...pet, checkInDate: new Date().toISOString() }
-            ]
+            checkoutHistory: [checkout, ...currentCustomer.checkoutHistory]
           }
         }
       );
-
-      let checkinDate = await customers.findOne({ id: currentCustomer.id });
-      let checkinArray = checkinDate.checkoutHistory;
-      let lastCheckout = checkinArray[checkinArray.length - 1];
-
-      let checkoutDateToChange = new Date(pet.checkoutDate);
-      let plusThree = checkoutDateToChange.getTime() + 3 * 60000;
-      let lateDate = new Date(plusThree).toISOString();
-
-      let checkout = {
-        pet: await pets.findOne({ id }),
-        checkOutDate: pet.checkoutDate,
-        checkInDate: lastCheckout.checkInDate,
-        late: lastCheckout.checkInDate > lateDate ? true : false
-      };
-
-      await checkouts.deleteOne({ petId: id });
 
       return checkout;
     }

@@ -4,7 +4,20 @@
     "username": "jbronson",
     "password": "$2b$10$tYnVVnVCBDWC0DEtyXw.vew3ko3GTaX.5c3VoVfMPi9BzbwIWiYSO",
     "dateCreated": "2019-03-24T02:19:49.025Z",
-    "checkoutHistory": []
+    "checkoutHistory": [
+      {
+        "petId": "R-2",
+        "username": "jbronson",
+        "checkOutDate": "2019-03-25T20:20:13.615Z",
+        "checkInDate": "2019-03-25T20:23:26.125Z"
+      },
+      {
+        "petId": "C-2",
+        "username": "jbronson",
+        "checkOutDate": "2019-03-26T20:19:57.961Z",
+        "checkInDate": "2019-03-26T20:19:59.297Z"
+      }
+    ]
   },
   {
     "name": "Paul Benson",
