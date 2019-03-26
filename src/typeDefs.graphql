@@ -226,9 +226,9 @@ type Checkout {
 }
 
 """
-`SearchResult` is a union type which means that either a `Customer` or a `Pet` could be returned for each `SearchResult`.
+`SearchResult` is a union type which means that either a `Customer`, `Cat`, `Dog`, `Rabbit`, or `Stingray` could be returned for each `SearchResult`.
 """
-union SearchResult = Customer | Pet
+union SearchResult = Customer | Cat | Dog | Rabbit | Stingray
 
 """
 All of the Pet Library's root query types can be found in the `Query`. This list defines all of the data you can ask for with a query.
