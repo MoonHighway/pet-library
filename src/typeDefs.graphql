@@ -208,7 +208,7 @@ type CheckOutPayload {
   "The entire `Pet` object for the pet who was just checked out."
   pet: Pet
   "The date that this `Pet` was checked out. This is used to calculate the due date."
-  checkoutDate: Date
+  checkOutDate: Date
 }
 
 """
