@@ -48,7 +48,7 @@ type Cat implements Pet {
 }
 
 """
-A `Dog` is a wolf descendent that you can dress in a little jacket.
+A `Dog` is a wolf descendant that you can dress in a little jacket.
 """
 type Dog implements Pet {
   "A unique identifier for each `Dog`."
@@ -111,10 +111,10 @@ type Stingray implements Pet {
   dueDate: Date
   "If this stingray is checked out (status: CHECKEDOUT), this field will return the `Customer` who checked this `Stingray` out and is responsible for is security and overall happiness"
   inCareOf: Customer
-  "Is this stingray chill? If so, this field will return `true`."
-  chill: Boolean
+  "Is this stingray chill? This will tell you how chill on a scale of 1 (least chill) - 10 (most chill)."
+  chill: Int
   "Is this stingray fast? If so, this field will return `true`."
-  fast: Int
+  fast: Boolean
 }
 
 """
@@ -141,20 +141,6 @@ type Photo {
   full: String
   "The url for a thumbnail photo of a `Pet`."
   thumb: String
-}
-
-"""
-This enumeration type describes the category that the `Pet` fits into. Additional types could be added to this enum as the Pet Library grows.
-"""
-enum PetCategory {
-  "A small, carnivorous mammal, usually sleeping."
-  CAT
-  "A wolf descendent that you can dress in little jackets"
-  DOG
-  "A long-eared hopping animal, often associated with jellybeans."
-  RABBIT
-  "A cartilaginous fish related to sharks common to coastal tropical and subtropical waters that the Pet Library will let you take home for some reason."
-  STINGRAY
 }
 
 """
@@ -226,12 +212,12 @@ type Checkout {
 }
 
 """
-`Family` is a union type which means that either a `Cat` or `Dog` could be returned for each `FamilyPet`.
+`FamilyPet` is a union type which means that either a `Cat` or `Dog` could be returned for each `FamilyPet`.
 """
 union FamilyPet = Cat | Dog
 
 """
-`Family` is a union type which means that either a `Cat` or `Dog` could be returned for each `FamilyPet`.
+`ExoticPet` is a union type which means that either a `Rabbit` or `Stingray` could be returned for each `ExoticPet`.
 """
 union ExoticPet = Rabbit | Stingray
 
@@ -246,12 +232,7 @@ type Query {
   "This query returns the number of `Pet`s that have been checked out and are not available."
   checkedOutPets: Int!
   "This query returns all of the data about the `Pet`s. This is a list of `Pet` objects that are part of the Pet Library."
-  allPets(
-    "OPTIONAL: `first` is an argument that is sent to handle data paging. If the value provided is 10, then the first 10 pets will be returned."
-    first: Int
-    "OPTIONAL: If you wanted to return a list of pets starting at the 40th pet, you would send `40` as the value of the `start` argument."
-    start: Int
-  ): [Pet!]!
+  allPets: [Pet!]!
   "This query returns data about the `Pet`s who are currently available and not checked out."
   allAvailablePets: [Pet!]!
   "This query returns data about the `Pet`s who are currently checked out and are not available."
@@ -283,7 +264,7 @@ type Mutation {
   createAccount(
     "REQUIRED: Send `username`, `name`, and `password` as arguments"
     input: CreateAccountInput!
-  ): CreateAccountPayload!
+  ): Customer
   "A mutation used to log in a registered user. If you haven't created an account yet, start with the `createAccount` mutation."
   logIn(
     "REQUIRED: Send your unique `username` as an argument to log in"
@@ -304,5 +285,5 @@ type Mutation {
 }
 
 type Subscription {
-  petReturned: Pet
+  petReturned: Checkout
 }

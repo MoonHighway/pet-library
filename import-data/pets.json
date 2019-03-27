@@ -30,7 +30,7 @@
       "full": "https://www.catis.life/placeholder/500"
     },
     "sleepAmount": 20,
-    "curious": false
+    "curious": true
   },
   {
     "id": "D-1",
@@ -70,7 +70,7 @@
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
     },
-    "chill": true,
+    "chill": 9,
     "fast": true
   },
   {
@@ -81,7 +81,7 @@
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
     },
-    "chill": false,
+    "chill": 10,
     "fast": true
   },
   {
@@ -92,7 +92,7 @@
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
     },
-    "chill": true,
+    "chill": 6,
     "fast": false
   },
   {
@@ -104,7 +104,7 @@
       "full": "https://www.catis.life/placeholder/500"
     },
     "favoriteFood": "carrots",
-    "floppy": true
+    "floppy": 8
   },
   {
     "id": "R-2",
@@ -115,7 +115,7 @@
       "full": "https://www.catis.life/placeholder/500"
     },
     "favoriteFood": "lettuce",
-    "floppy": false
+    "floppy": 9
   },
   {
     "id": "R-3",
@@ -126,6 +126,6 @@
       "full": "https://www.catis.life/placeholder/500"
     },
     "favoriteFood": "spaghetti",
-    "floppy": true
+    "floppy": 5
   }
 ]
