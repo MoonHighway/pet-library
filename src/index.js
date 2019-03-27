@@ -1,4 +1,4 @@
-const { ApolloServer } = require("apollo-server");
+const { ApolloServer, PubSub } = require("apollo-server");
 const { readFileSync } = require("fs");
 const { MongoClient } = require("mongodb");
 const jwt = require("jsonwebtoken");
@@ -20,14 +20,22 @@ const start = async () => {
 
   const db = client.db();
 
-  const context = async ({ req }) => {
+  const pubsub = new PubSub();
+
+  const context = async ({ req, connection }) => {
     const pets = db.collection("pets");
     const customers = db.collection("customers");
     const checkouts = db.collection("checkouts");
     let currentCustomer;
-    const token = req.headers.authorization
-      ? req.headers.authorization.replace("Bearer ", "")
-      : null;
+    let token;
+
+    if (connection) {
+      token = null;
+    } else if (req.headers.authorization) {
+      token = req.headers.authorization.replace("Bearer ", "");
+    } else {
+      token = null;
+    }
 
     if (token) {
       try {
@@ -40,7 +48,7 @@ const start = async () => {
       }
     }
 
-    return { pets, customers, checkouts, currentCustomer };
+    return { pets, customers, checkouts, currentCustomer, pubsub };
   };
 
   const PORT = process.env.PORT || 4000;

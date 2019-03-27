@@ -20,5 +20,16 @@ module.exports = {
     } else {
       return null;
     }
+  },
+  __resolveType: parent => {
+    if (parent.curious) {
+      return "Cat";
+    } else if (parent.good) {
+      return "Dog";
+    } else if (parent.floppy) {
+      return "Rabbit";
+    } else {
+      return "Stingray";
+    }
   }
 };
