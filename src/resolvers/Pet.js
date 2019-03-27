@@ -22,14 +22,14 @@ module.exports = {
     }
   },
   __resolveType: parent => {
-    if (parent.curious) {
+    if (parent.sleepAmount) {
       return "Cat";
-    } else if (parent.good) {
-      return "Dog";
-    } else if (parent.floppy) {
+    } else if (parent.favoriteFood) {
       return "Rabbit";
-    } else {
+    } else if (parent.chill) {
       return "Stingray";
+    } else {
+      return "Dog";
     }
   }
 };
