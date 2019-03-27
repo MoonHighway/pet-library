@@ -84,7 +84,7 @@ module.exports = {
   async checkIn(
     parent,
     { id },
-    { pets, customers, checkouts, currentCustomer }
+    { pets, customers, checkouts, currentCustomer, pubsub }
   ) {
     if (!currentCustomer) {
       throw new Error("You have to be logged in to check in a pet.");
@@ -107,6 +107,8 @@ module.exports = {
           }
         }
       );
+
+      pubsub.publish("pet-returned", { petReturned: checkout });
 
       return checkout;
     }
