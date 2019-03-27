@@ -114,7 +114,7 @@ type Stingray implements Pet {
   "Is this stingray chill? If so, this field will return `true`."
   chill: Boolean
   "Is this stingray fast? If so, this field will return `true`."
-  fast: Boolean
+  fast: Int
 }
 
 """
@@ -144,6 +144,20 @@ type Photo {
 }
 
 """
+This enumeration type describes the category that the `Pet` fits into. Additional types could be added to this enum as the Pet Library grows.
+"""
+enum PetCategory {
+  "A small, carnivorous mammal, usually sleeping."
+  CAT
+  "A wolf descendent that you can dress in little jackets"
+  DOG
+  "A long-eared hopping animal, often associated with jellybeans."
+  RABBIT
+  "A cartilaginous fish related to sharks common to coastal tropical and subtropical waters that the Pet Library will let you take home for some reason."
+  STINGRAY
+}
+
+"""
 This enumeration type tells us whether or not a pet is checked out. If `AVAILABLE`, a `Customer` can take this pet home. If `CHECKEDOUT`, a `Customer` has to wait for the pet to be returned.
 """
 enum PetStatus {
@@ -163,6 +177,16 @@ input CreateAccountInput {
   username: ID!
   "A `Customer`'s password."
   password: String!
+}
+
+"""
+When a new customer creates an account, this object will be returned from the `createAccount` mutation.
+"""
+type CreateAccountPayload {
+  "The entire `Customer` object for the recently registered individual."
+  customer: Customer
+  "A welcome message to the new `Customer` encouraging them to log in."
+  message: String
 }
 
 """
@@ -222,7 +246,12 @@ type Query {
   "This query returns the number of `Pet`s that have been checked out and are not available."
   checkedOutPets: Int!
   "This query returns all of the data about the `Pet`s. This is a list of `Pet` objects that are part of the Pet Library."
-  allPets: [Pet!]!
+  allPets(
+    "OPTIONAL: `first` is an argument that is sent to handle data paging. If the value provided is 10, then the first 10 pets will be returned."
+    first: Int
+    "OPTIONAL: If you wanted to return a list of pets starting at the 40th pet, you would send `40` as the value of the `start` argument."
+    start: Int
+  ): [Pet!]!
   "This query returns data about the `Pet`s who are currently available and not checked out."
   allAvailablePets: [Pet!]!
   "This query returns data about the `Pet`s who are currently checked out and are not available."
@@ -254,7 +283,7 @@ type Mutation {
   createAccount(
     "REQUIRED: Send `username`, `name`, and `password` as arguments"
     input: CreateAccountInput!
-  ): Customer!
+  ): CreateAccountPayload!
   "A mutation used to log in a registered user. If you haven't created an account yet, start with the `createAccount` mutation."
   logIn(
     "REQUIRED: Send your unique `username` as an argument to log in"
@@ -275,5 +304,5 @@ type Mutation {
 }
 
 type Subscription {
-  petReturned: Checkout
+  petReturned: Pet
 }
