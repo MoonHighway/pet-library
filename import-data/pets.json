@@ -33,6 +33,50 @@
     "curious": true
   },
   {
+    "id": "C-4",
+    "name": "Beebee",
+    "weight": 13.3,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "sleepAmount": 3,
+    "curious": true
+  },
+  {
+    "id": "C-5",
+    "name": "Pillow",
+    "weight": 8.3,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "sleepAmount": 13,
+    "curious": false
+  },
+  {
+    "id": "C-6",
+    "name": "Buddy",
+    "weight": 9.2,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "sleepAmount": 18,
+    "curious": true
+  },
+  {
+    "id": "C-7",
+    "name": "Mini",
+    "weight": 5.2,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "sleepAmount": 1,
+    "curious": true
+  },
+  {
     "id": "D-1",
     "name": "Warren",
     "weight": 50.4,
@@ -63,6 +107,66 @@
     "good": true
   },
   {
+    "id": "D-4",
+    "name": "Minnie",
+    "weight": 75.4,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "good": true
+  },
+  {
+    "id": "D-5",
+    "name": "Canela",
+    "weight": 100.4,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "good": true
+  },
+  {
+    "id": "D-6",
+    "name": "Mehla",
+    "weight": 90.3,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "good": true
+  },
+  {
+    "id": "D-7",
+    "name": "Rainier McCheddarton",
+    "weight": 70.4,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "good": true
+  },
+  {
+    "id": "D-8",
+    "name": "Pax",
+    "weight": 52.7,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "good": true
+  },
+  {
+    "id": "D-9",
+    "name": "Lucie Moon",
+    "weight": 44.7,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "good": true
+  },
+  {
     "id": "S-1",
     "name": "Lazer",
     "weight": 15.7,
@@ -75,7 +179,7 @@
   },
   {
     "id": "S-2",
-    "name": "Horsey",
+    "name": "Switchblade",
     "weight": 20.7,
     "photo": {
       "thumb": "https://www.catis.life/placeholder/200",
@@ -88,6 +192,17 @@
     "id": "S-3",
     "name": "Star",
     "weight": 20.4,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "chill": 6,
+    "fast": false
+  },
+  {
+    "id": "S-4",
+    "name": "Pluto",
+    "weight": 66.1,
     "photo": {
       "thumb": "https://www.catis.life/placeholder/200",
       "full": "https://www.catis.life/placeholder/500"
@@ -127,5 +242,27 @@
     },
     "favoriteFood": "spaghetti",
     "floppy": 5
+  },
+  {
+    "id": "R-4",
+    "name": "Jason",
+    "weight": 2.7,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "favoriteFood": "carrots",
+    "floppy": 3
+  },
+  {
+    "id": "R-5",
+    "name": "Peep",
+    "weight": 6.5,
+    "photo": {
+      "thumb": "https://www.catis.life/placeholder/200",
+      "full": "https://www.catis.life/placeholder/500"
+    },
+    "favoriteFood": "enchiladas",
+    "floppy": 10
   }
 ]
