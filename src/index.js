@@ -5,6 +5,7 @@ const { MongoClient } = require("mongodb");
 const jwt = require("jsonwebtoken");
 const resolvers = require("./resolvers");
 const path = require("path");
+const restRoutes = require("./REST-API");
 
 const typeDefs = readFileSync(
   path.join(__dirname, "typeDefs.graphql"),
@@ -55,6 +56,7 @@ const start = async () => {
 
   const app = express();
 
+  app.use("/api", restRoutes(db.collection("pets")));
   server.applyMiddleware({ app, path: "/" });
 
   app.listen({ port: PORT }, () => {
