@@ -1,4 +1,5 @@
-const { ApolloServer } = require("apollo-server");
+const express = require("express");
+const { ApolloServer } = require("apollo-server-express");
 const { readFileSync } = require("fs");
 const { MongoClient } = require("mongodb");
 const jwt = require("jsonwebtoken");
@@ -48,12 +49,17 @@ const start = async () => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context
+    context,
+    playground: true
   });
 
-  server
-    .listen({ port: PORT })
-    .then(({ port }) => console.log(`Server running at ${port}`));
+  const app = express();
+
+  server.applyMiddleware({ app, path: "/" });
+
+  app.listen({ port: PORT }, () => {
+    console.log(`Server running at ${PORT}`);
+  });
 };
 
 start();
