@@ -9,6 +9,9 @@
     "start": "node ./src",
     "dev": "nodemon -r dotenv/config ./src -e graphql,js"
   },
+  "engines": {
+    "node": "13.1.0"
+  },
   "keywords": [],
   "author": "",
   "license": "MIT",
