@@ -5,8 +5,8 @@
     "weight": 10.2,
     "category": "CAT",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764387/thumbs/biscuit_tn_njuvwl.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764166/biscuit_inhtt3.jpg"
     }
   },
   {
@@ -15,8 +15,8 @@
     "weight": 9.7,
     "category": "CAT",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764387/thumbs/jungle_tn_ayjti1.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764112/jungle_evdm47.jpg"
     }
   },
   {
@@ -25,8 +25,8 @@
     "weight": 10.9,
     "category": "CAT",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764387/thumbs/benji_tn_cjccyb.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764036/benji_rkg884.jpg"
     }
   },
   {
@@ -35,8 +35,8 @@
     "weight": 13.3,
     "category": "CAT",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764387/thumbs/beebee_tn_ljyrpc.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582763988/beebee_oqtgld.jpg"
     }
   },
   {
@@ -45,8 +45,8 @@
     "weight": 8.3,
     "category": "CAT",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764388/thumbs/pillow_tn_owau6w.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764042/pillow_j9yenx.jpg"
     }
   },
   {
@@ -55,8 +55,8 @@
     "weight": 9.2,
     "category": "CAT",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764387/thumbs/buddy_tn_syqsun.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764293/buddy_oln5er.jpg"
     }
   },
   {
@@ -65,48 +65,48 @@
     "weight": 5.2,
     "category": "CAT",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764388/thumbs/mini_tn_jpjxnq.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764180/mini_stjtkm.jpg"
     }
   },
   {
     "id": "D-1",
-    "name": "Warren",
+    "name": "Danton",
     "weight": 50.4,
     "category": "DOG",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764387/thumbs/danton_tn_dg5hwl.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582763990/danton_et1gql.jpg"
     }
   },
   {
     "id": "D-2",
-    "name": "Angelica",
+    "name": "Archy",
     "weight": 19.9,
     "category": "DOG",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764387/thumbs/archy_tn_qlgg24.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582763883/archy_yehmk9.jpg"
     }
   },
   {
     "id": "D-3",
-    "name": "Camper",
+    "name": "Otis",
     "weight": 50.4,
     "category": "DOG",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764388/thumbs/otis_tn_lhim8b.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764030/otis_s6rnrm.jpg"
     }
   },
   {
     "id": "D-4",
-    "name": "Minnie",
+    "name": "Luna",
     "weight": 75.4,
     "category": "DOG",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764388/thumbs/luna_tn_ghpxtv.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582763994/luna_zdqqlx.jpg"
     }
   },
   {
@@ -115,8 +115,8 @@
     "weight": 100.4,
     "category": "DOG",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764387/thumbs/canela_tn_qxvlai.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582763877/canela_fwp5mm.jpg"
     }
   },
   {
@@ -125,8 +125,8 @@
     "weight": 90.3,
     "category": "DOG",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764388/thumbs/mehla_tn_cxccvz.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764044/mehla_yvsqfb.jpg"
     }
   },
   {
@@ -135,8 +135,8 @@
     "weight": 70.4,
     "category": "DOG",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764388/thumbs/rainier_tn_naxsxt.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582763878/rainier_yeodlm.jpg"
     }
   },
   {
@@ -145,18 +145,18 @@
     "weight": 52.7,
     "category": "DOG",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764388/thumbs/pax_tn_yhw1gz.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764041/pax_aj6wqh.jpg"
     }
   },
   {
     "id": "D-9",
-    "name": "Lucie Moon",
+    "name": "Lucie",
     "weight": 44.7,
     "category": "DOG",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764388/thumbs/lucie_tn_we1rji.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582763973/lucie_ro5isy.jpg"
     }
   },
   {
@@ -165,8 +165,8 @@
     "weight": 15.7,
     "category": "STINGRAY",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764388/thumbs/lazer_tn_jgcolg.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582763985/lazer_yrwvzu.jpg"
     }
   },
   {
@@ -175,8 +175,8 @@
     "weight": 20.7,
     "category": "STINGRAY",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764389/thumbs/switchblade_tn_qcmybh.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764363/switchblade_emzkx3.jpg"
     }
   },
   {
@@ -185,8 +185,8 @@
     "weight": 20.4,
     "category": "STINGRAY",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764388/thumbs/steve_tn_klcjkw.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582763991/steve_w7mqee.jpg"
     }
   },
   {
@@ -195,8 +195,8 @@
     "weight": 66.1,
     "category": "STINGRAY",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764388/thumbs/pluto_tn_z3d6hs.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764104/pluto_sbdj3l.jpg"
     }
   },
   {
@@ -205,8 +205,8 @@
     "weight": 3.7,
     "category": "RABBIT",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764388/thumbs/pip_tn_xhrimm.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764136/pip_o0snc2.jpg"
     }
   },
   {
@@ -215,8 +215,8 @@
     "weight": 4.6,
     "category": "RABBIT",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764389/thumbs/sweetums_tn_zz3r4f.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764027/sweetums_prsppm.jpg"
     }
   },
   {
@@ -225,8 +225,8 @@
     "weight": 5.5,
     "category": "RABBIT",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764387/thumbs/jerry_tn_zdcmvm.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764083/jerry_drpooy.jpg"
     }
   },
   {
@@ -235,8 +235,8 @@
     "weight": 2.7,
     "category": "RABBIT",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764387/thumbs/jason_tn_fvjgiv.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764178/jason_yzb3sg.jpg"
     }
   },
   {
@@ -245,8 +245,8 @@
     "weight": 6.5,
     "category": "RABBIT",
     "photo": {
-      "thumb": "https://www.catis.life/placeholder/200",
-      "full": "https://www.catis.life/placeholder/500"
+      "thumb": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764388/thumbs/peep_tn_z4ckwy.jpg",
+      "full": "https://res.cloudinary.com/hzrulbrds/image/upload/v1582764163/peep_g42p7k.jpg"
     }
   }
 ]
