@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const resolvers = require("./resolvers");
 const path = require("path");
 const restRoutes = require("./REST-API");
+const cors = require("cors");
 
 const typeDefs = readFileSync(
   path.join(__dirname, "typeDefs.graphql"),
@@ -14,7 +15,8 @@ const typeDefs = readFileSync(
 
 const start = async () => {
   const uri =
-    process.env.MONGODB_URI || "mongodb://localhost:27017/pet-library";
+    process.env.MONGODB_URI ||
+    "mongodb://localhost:27017/pet-library";
   console.log("connection to ", uri);
   const client = await MongoClient.connect(uri, {
     useNewUrlParser: true
@@ -33,7 +35,10 @@ const start = async () => {
 
     if (token) {
       try {
-        const decoded = jwt.verify(token, process.env.SECRET);
+        const decoded = jwt.verify(
+          token,
+          process.env.SECRET
+        );
         currentCustomer = await customers.findOne({
           username: decoded.username
         });
@@ -55,7 +60,7 @@ const start = async () => {
   });
 
   const app = express();
-
+  app.use(cors());
   app.use("/api", restRoutes(db.collection("pets")));
   server.applyMiddleware({ app, path: "/" });
 
