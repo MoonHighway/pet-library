@@ -17,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^2.4.8",
-    "bcrypt": "3.0.8",
+    "bcrypt": "5.0.0",
     "dotenv": "^7.0.0",
     "graphql": "^14.1.1",
     "jsonwebtoken": "^8.5.0",
