@@ -16,7 +16,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "apollo-server": "^2.4.8",
+    "apollo-server": "^2.25.3",
     "bcrypt": "3.0.8",
     "dotenv": "^7.0.0",
     "graphql": "^14.1.1",
