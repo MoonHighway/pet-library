@@ -1,7 +1,10 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const { readFileSync } = require("fs");
-const { MongoClient } = require("mongodb");
+const {
+  MongoClient,
+  ServerApiVersion,
+} = require("mongodb");
 const jwt = require("jsonwebtoken");
 const resolvers = require("./resolvers");
 const path = require("path");
@@ -17,12 +20,16 @@ const start = async () => {
   const uri =
     process.env.MONGODB_URI ||
     "mongodb://localhost:27017/pet-library";
-  console.log("connection to ", uri);
-  const client = await MongoClient.connect(uri, {
-    useNewUrlParser: true
+
+  const client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    },
   });
 
-  const db = client.db();
+  const db = client.connect();
 
   const context = async ({ req }) => {
     const pets = db.collection("pets");
@@ -40,7 +47,7 @@ const start = async () => {
           process.env.SECRET
         );
         currentCustomer = await customers.findOne({
-          username: decoded.username
+          username: decoded.username,
         });
       } catch (e) {
         console.log("context token error: ", e.message);
@@ -56,7 +63,7 @@ const start = async () => {
     typeDefs,
     resolvers,
     context,
-    playground: true
+    playground: true,
   });
 
   const app = express();
