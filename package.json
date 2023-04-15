@@ -10,7 +10,7 @@
     "dev": "nodemon -r dotenv/config ./src -e graphql,js"
   },
   "engines": {
-    "node": "13.1.0"
+    "node": "14.10.0"
   },
   "keywords": [],
   "author": "",
