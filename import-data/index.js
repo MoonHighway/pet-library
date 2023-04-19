@@ -78,14 +78,17 @@ const start = async () => {
 
   console.log("\n\ndropping database collections");
   try {
+    db = client.connect();
     await db.collection("pets").drop();
   } catch (e) {}
 
   try {
+    db = client.connect();
     await db.collection("customers").drop();
   } catch (e) {}
 
   try {
+    db = client.connect();
     await db.collection("checkouts").drop();
   } catch (e) {}
 
@@ -94,6 +97,7 @@ const start = async () => {
   //
 
   console.log("\n\nimporting data\n\n");
+  db = client.connect();
   await Promise.all([
     importCollection(db, "pets", pets),
     importCollection(db, "customers", customers),
