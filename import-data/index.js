@@ -48,33 +48,17 @@ const start = async () => {
   // Connect to Mongo Database
   //
 
-  try {
-    let uri =
-      process.env.MONGODB_URI ||
-      "mongodb://localhost:27017/pet-library";
-    console.log("connecting to ", uri);
-    const client = new MongoClient(uri, {
-      serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-      },
-    });
-
-    db = client.connect();
-  } catch (e) {
-    console.log(
-      "error connection to mongodb at ",
-      process.env.MONGODB_URI ||
-        "mongodb://localhost:27017/pet-library"
-    );
-    console.log("ERROR: ", e.message);
-    process.exit(1);
-  }
-
-  //
-  // Drop all connections
-  //
+  let uri =
+    process.env.MONGODB_URI ||
+    "mongodb://localhost:27017/pet-library";
+  console.log("connecting to ", uri);
+  const client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    },
+  });
 
   console.log("\n\ndropping database collections");
   try {
