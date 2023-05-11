@@ -1,15 +1,15 @@
-const Query = require("./Query");
-const Mutation = require("./Mutation");
-const Customer = require("./Customer");
-const Date = require("./Date");
-const Pet = require("./Pet");
-const Checkout = require("./Checkout");
+import Query from "./Query.js";
+import Mutation from "./Mutation.js";
+import Customer from "./Customer.js";
+import Date from "./Date.js";
+import Pet from "./Pet.js";
+import Checkout from "./Checkout.js";
 
-module.exports = {
+export default {
   Query,
   Mutation,
-  Date,
   Customer,
   Pet,
-  Checkout
+  Checkout,
+  Date,
 };

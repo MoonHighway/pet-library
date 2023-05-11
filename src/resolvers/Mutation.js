@@ -1,16 +1,16 @@
-const bcrypt = require("bcrypt");
-const { generate } = require("shortid");
-const jwt = require("jsonwebtoken");
+import bcrypt from "bcrypt";
+import { generate } from "shortid";
+import jwt from "jsonwebtoken";
 
-module.exports = {
+export default {
   async createAccount(
     parent,
-    {
-      input: { name, username, password }
-    },
+    { input: { name, username, password } },
     { customers }
   ) {
-    let existingCustomer = await customers.findOne({ username });
+    let existingCustomer = await customers.findOne({
+      username,
+    });
     if (!existingCustomer) {
       let hash = bcrypt.hashSync(password, 10);
       let newCustomer = {
@@ -20,18 +20,26 @@ module.exports = {
         currentPets: [],
         checkoutHistory: [],
         password: hash,
-        dateCreated: new Date().toISOString()
+        dateCreated: new Date().toISOString(),
       };
       await customers.insertOne(newCustomer);
       return newCustomer;
     } else {
-      throw new Error("An account with this username already exists.");
+      throw new Error(
+        "An account with this username already exists."
+      );
     }
   },
-  async logIn(parent, { username, password }, { customers, currentCustomer }) {
+  async logIn(
+    parent,
+    { username, password },
+    { customers, currentCustomer }
+  ) {
     let customer = await customers.findOne({ username });
     if (!customer) {
-      throw new Error(`Account with that username: ${username} not found.`);
+      throw new Error(
+        `Account with that username: ${username} not found.`
+      );
     }
     if (bcrypt.compareSync(password, customer.password)) {
       currentCustomer = customer;
@@ -42,7 +50,7 @@ module.exports = {
       currentCustomer.token = token;
       return {
         customer: currentCustomer,
-        token
+        token,
       };
     } else {
       throw new Error("Incorrect password.");
@@ -54,28 +62,32 @@ module.exports = {
     { pets, customers, checkouts, currentCustomer }
   ) {
     if (!currentCustomer) {
-      throw new Error("You have to be logged in to check out a pet.");
+      throw new Error(
+        "You have to be logged in to check out a pet."
+      );
     }
     let pet = await checkouts.findOne({ petId: id });
     let petExists = await pets.findOne({ id });
     if (pet) {
-      throw new Error("Sorry, this pet is already checked out.");
+      throw new Error(
+        "Sorry, this pet is already checked out."
+      );
     } else if (petExists) {
       let checkout = {
         petId: id,
         username: currentCustomer.username,
-        checkOutDate: new Date().toISOString()
+        checkOutDate: new Date().toISOString(),
       };
 
       await checkouts.replaceOne(checkout, checkout, {
-        upsert: true
+        upsert: true,
       });
       return {
         customer: await customers.findOne({
-          username: currentCustomer.username
+          username: currentCustomer.username,
         }),
         pet: await pets.findOne({ id }),
-        checkOutDate: checkout.checkOutDate
+        checkOutDate: checkout.checkOutDate,
       };
     } else {
       throw new Error("This pet does not exist.");
@@ -87,7 +99,9 @@ module.exports = {
     { pets, customers, checkouts, currentCustomer }
   ) {
     if (!currentCustomer) {
-      throw new Error("You have to be logged in to check in a pet.");
+      throw new Error(
+        "You have to be logged in to check in a pet."
+      );
     }
     let pet = await checkouts.findOne({ petId: id });
     if (!pet) {
@@ -103,12 +117,15 @@ module.exports = {
         { username: currentCustomer.username },
         {
           $set: {
-            checkoutHistory: [checkout, ...currentCustomer.checkoutHistory]
-          }
+            checkoutHistory: [
+              checkout,
+              ...currentCustomer.checkoutHistory,
+            ],
+          },
         }
       );
 
       return checkout;
     }
-  }
+  },
 };

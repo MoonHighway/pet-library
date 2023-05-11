@@ -1,15 +1,16 @@
-const express = require("express");
-const { ApolloServer } = require("apollo-server-express");
-const { readFileSync } = require("fs");
-const {
-  MongoClient,
-  ServerApiVersion,
-} = require("mongodb");
-const jwt = require("jsonwebtoken");
-const resolvers = require("./resolvers");
-const path = require("path");
-const restRoutes = require("./REST-API");
-const cors = require("cors");
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { readFileSync } from "fs";
+import path from "path";
+import restRoutes from "./REST-API.js";
+import jwt from "jsonwebtoken";
+import resolvers from "./resolvers/index.js";
+import { MongoClient, ServerApiVersion } from "mongodb";
+
+import * as url from "url";
+const __dirname = url.fileURLToPath(
+  new URL(".", import.meta.url)
+);
 
 const typeDefs = readFileSync(
   path.join(__dirname, "typeDefs.graphql"),
@@ -28,13 +29,15 @@ const start = async () => {
       deprecationErrors: true,
     },
   });
-
-  const db = client.connect();
-
+  await client.connect();
   const context = async ({ req }) => {
-    const pets = db.collection("pets");
-    const customers = db.collection("customers");
-    const checkouts = db.collection("checkouts");
+    const pets = await client.db("pets").collection("pets");
+    const customers = await client
+      .db("pets")
+      .collection("customers");
+    const checkouts = await client
+      .db("checkouts")
+      .collection("checkouts");
     let currentCustomer;
     const token = req.headers.authorization
       ? req.headers.authorization.replace("Bearer ", "")
@@ -59,21 +62,12 @@ const start = async () => {
 
   const PORT = process.env.PORT || 4000;
 
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+  const server = new ApolloServer({ typeDefs, resolvers });
+  const { url } = await startStandaloneServer(server, {
     context,
-    playground: true,
+    listen: { port: PORT },
   });
-
-  const app = express();
-  app.use(cors());
-  app.use("/api", restRoutes(db.collection("pets")));
-  server.applyMiddleware({ app, path: "/" });
-
-  app.listen({ port: PORT }, () => {
-    console.log(`Server running at ${PORT}`);
-  });
+  console.log(`Server running at ${url}`);
 };
 
 start();
