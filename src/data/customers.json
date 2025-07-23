@@ -1,0 +1,43 @@
+[
+  {
+    "name": "John Bronson",
+    "username": "jbronson",
+    "password": "$2b$10$tYnVVnVCBDWC0DEtyXw.vew3ko3GTaX.5c3VoVfMPi9BzbwIWiYSO",
+    "dateCreated": "2019-03-24T02:19:49.025Z",
+    "checkoutHistory": [
+      {
+        "petId": "R-2",
+        "username": "jbronson",
+        "checkOutDate": "2019-03-25T20:20:13.615Z",
+        "checkInDate": "2019-03-25T20:23:26.125Z"
+      },
+      {
+        "petId": "C-2",
+        "username": "jbronson",
+        "checkOutDate": "2019-03-26T20:19:57.961Z",
+        "checkInDate": "2019-03-26T20:19:59.297Z"
+      }
+    ]
+  },
+  {
+    "name": "Paul Benson",
+    "username": "pbenson",
+    "password": "$2b$10$YpllnOeS33gtILG7xSnld.ZQS3UWMTo4D1f4wPR3LoZcgF10mzZkm",
+    "dateCreated": "2019-03-24T02:19:20.848Z",
+    "checkoutHistory": []
+  },
+  {
+    "name": "Shana Nelson",
+    "username": "snelson",
+    "password": "$2b$10$RuYv5lx81pPxiowOlmUjhe0ts61Z3JGFkmcjGNBgKGM2H2ZejzZsS",
+    "dateCreated": "2019-03-24T02:19:36.554Z",
+    "checkoutHistory": []
+  },
+  {
+    "name": "Gran Janson",
+    "username": "gjanson",
+    "password": "$2b$10$j3b1rIzwH85ceirKtDf2ZeM3RL8jxhFwnWwkPOrYQftR5hIGROxBO",
+    "dateCreated": "2019-03-24T02:23:14.564Z",
+    "checkoutHistory": []
+  }
+]

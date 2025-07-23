@@ -1,0 +1,100 @@
+const {
+  MongoClient,
+  ServerApiVersion,
+} = require("mongodb");
+const pets = require("./pets.json");
+const customers = require("./customers.json");
+const checkouts = require("./checkouts.json");
+
+console.log(`
+
+IMPORTING MONGODB DATA
+
+`);
+
+const importCollection = async (
+  db,
+  collectionName,
+  data
+) => {
+  try {
+    console.log(`  creating ${collectionName} collection`);
+    let collection = await db.createCollection(
+      collectionName
+    );
+    console.log(
+      `  importing ${data.length} ${collectionName}`
+    );
+    let results = await collection.insertMany(data);
+    if (results.result.ok) {
+      console.log(
+        `  success ${results.result.n} ${collectionName} imported`
+      );
+    } else {
+      console.log(`  Error importing ${collectionName}`);
+      process.exit(1);
+    }
+  } catch (e) {
+    console.log(`  error importing ${collectionName}`);
+    console.log("  ERROR: ", e.message);
+    process.exit(1);
+  }
+};
+
+const start = async () => {
+  let db;
+
+  //
+  // Connect to Mongo Database
+  //
+
+  let uri =
+    process.env.MONGODB_URI ||
+    "mongodb://localhost:27017/pet-library";
+  console.log("connecting to ", uri);
+  const client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    },
+  });
+
+  console.log("\n\ndropping database collections");
+  try {
+    db = client.connect();
+    await db.collection("pets").drop();
+  } catch (e) {}
+
+  try {
+    db = client.connect();
+    await db.collection("customers").drop();
+  } catch (e) {}
+
+  try {
+    db = client.connect();
+    await db.collection("checkouts").drop();
+  } catch (e) {}
+
+  //
+  // Import all collections
+  //
+
+  console.log("\n\nimporting data\n\n");
+  db = client.connect();
+  await Promise.all([
+    importCollection(db, "pets", pets),
+    importCollection(db, "customers", customers),
+    importCollection(db, "checkouts", checkouts),
+  ]);
+
+  console.log(`
+
+DATA SUCCESSFULLY IMPORTED
+
+`);
+
+  process.exit(0);
+};
+
+start();

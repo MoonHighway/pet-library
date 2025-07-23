@@ -1,0 +1,17 @@
+[
+  {
+    "username": "snelson",
+    "petId": "C-1",
+    "checkOutDate": "2019-03-26T19:45:24.668Z"
+  },
+  {
+    "username": "snelson",
+    "petId": "S-1",
+    "checkOutDate": "2019-03-22T19:45:24.668Z"
+  },
+  {
+    "username": "jbronson",
+    "petId": "R-1",
+    "checkOutDate": "2019-03-21T19:45:24.668Z"
+  }
+]
